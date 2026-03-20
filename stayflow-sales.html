@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+
+  <!-- PWA / Home Screen Icon -->
+  <link rel="icon" type="image/svg+xml" href="icon-sales.svg">
+  <link rel="apple-touch-icon" href="icon-sales.svg">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>StayFlow™ Sales</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{--t:.28s cubic-bezier(.4,0,.2,1)}
+[data-theme="dark"]{
+  --bg:#0e0e0b;--sf:#161612;--sf2:#1e1e18;--sf3:#262620;
+  --bd:rgba(220,200,120,.07);--bd2:rgba(220,200,120,.13);--bd3:rgba(220,200,120,.22);
+  --tx:#eae6d4;--tx2:#7a7260;--tx3:#484030;
+  --ac:#c8a040;--ac2:rgba(200,160,64,.14);--ac3:rgba(200,160,64,.30);
+  --rd:#e05060;--rd2:rgba(224,80,96,.13);
+  --gn:#28b870;--gn2:rgba(40,184,112,.13);
+  --sk:#30a8e0;--sk2:rgba(48,168,224,.13);
+  --pu:#9878d8;--pu2:rgba(152,120,216,.13);
+  --sh:0 1px 4px rgba(0,0,0,.5);--sh2:0 4px 20px rgba(0,0,0,.55);--shac:0 4px 20px rgba(200,160,64,.3);
+}
+[data-theme="light"]{
+  --bg:#faf8f0;--sf:#fff;--sf2:#f5f2e4;--sf3:#ede8d4;
+  --bd:rgba(100,80,20,.07);--bd2:rgba(100,80,20,.13);--bd3:rgba(100,80,20,.22);
+  --tx:#18140a;--tx2:#524830;--tx3:#988858;
+  --ac:#906820;--ac2:rgba(144,104,32,.12);--ac3:rgba(144,104,32,.26);
+  --rd:#b82030;--rd2:rgba(184,32,48,.1);
+  --gn:#0e8848;--gn2:rgba(14,136,72,.1);
+  --sk:#0270a8;--sk2:rgba(2,112,168,.1);
+  --pu:#6040b8;--pu2:rgba(96,64,184,.1);
+  --sh:0 1px 3px rgba(0,0,0,.07);--sh2:0 4px 16px rgba(0,0,0,.09);--shac:0 4px 18px rgba(144,104,32,.22);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);display:flex;justify-content:center;transition:background var(--t),color var(--t)}
+.app{width:100%;max-width:430px;height:100vh;position:relative;overflow:hidden}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .24s ease,transform .24s ease;transform:translateX(16px);background:var(--bg)}
+.screen.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.sb{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:16px 14px 90px;display:flex;flex-direction:column;gap:13px}
+.sb::-webkit-scrollbar{display:none}
+.tbar{background:var(--sf);border-bottom:1px solid var(--bd);padding:12px 15px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;transition:background var(--t)}
+.tbL{display:flex;align-items:center;gap:9px}.tbR{display:flex;align-items:center;gap:7px}
+.logo{font-family:'Playfair Display',serif;font-weight:900;font-size:17px;letter-spacing:-.3px}
+.logo em{color:var(--ac);font-style:normal}
+.lmark{width:26px;height:26px;background:var(--ac);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;box-shadow:var(--shac)}
+.ib{width:32px;height:32px;border-radius:50%;background:var(--sf2);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s;flex-shrink:0;font-weight:700;color:var(--tx2);font-size:10px}
+.ib.ic{font-size:14px}.ib:hover{background:var(--sf3)}
+.bnav{position:absolute;bottom:0;left:0;right:0;background:var(--sf);border-top:1px solid var(--bd);display:flex;align-items:center;padding:7px 0 calc(7px + env(safe-area-inset-bottom));z-index:50;transition:background var(--t)}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
+.ni .ico{font-size:19px;opacity:.22;transition:all .2s;transform:scale(.88)}
+.ni .nl{font-size:9px;font-weight:700;color:var(--tx3);transition:color .2s;letter-spacing:.3px;text-transform:uppercase}
+.ni.on .ico{opacity:1;transform:scale(1)}.ni.on .nl{color:var(--ac)}
+.inp{width:100%;background:var(--sf2);border:1.5px solid var(--bd2);border-radius:12px;padding:12px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--tx);outline:none;transition:border-color .2s,background var(--t)}
+.inp:focus{border-color:var(--ac)}.inp::placeholder{color:var(--tx3)}
+.sel{appearance:none}.ta{resize:none;font-family:'DM Sans',sans-serif}
+.fc{display:flex;flex-direction:column;gap:4px}.fr{display:flex;gap:8px}.fr .fc{flex:1}
+.lbl{font-size:11px;font-weight:700;color:var(--tx2);letter-spacing:.4px;text-transform:uppercase}
+.btn{width:100%;padding:13px;border-radius:13px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:7px}
+.btn:active{transform:scale(.97)}
+.bp{background:var(--ac);color:#fff;box-shadow:var(--shac)}.bp:hover{filter:brightness(1.08)}
+.bwa{background:#25D366;color:#fff}
+.bg{background:var(--sf2);color:var(--tx2);border:1.5px solid var(--bd2)}
+.bsm{padding:7px 13px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;border:none;cursor:pointer;transition:all .18s}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:18px;box-shadow:var(--sh);transition:background var(--t);overflow:hidden}
+.crow{display:flex;align-items:center;gap:11px;padding:12px 14px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .14s}
+.crow:last-child{border-bottom:none}.crow:hover{background:var(--sf2)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.sc{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:13px 12px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--sh);cursor:pointer;transition:background var(--t),transform .15s}
+.sc:hover{transform:translateY(-2px)}
+.sico{font-size:18px}.sval{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;letter-spacing:-.3px}.slb{font-size:11px;color:var(--tx2)}
+.cp .sval{color:var(--ac)}.cr .sval{color:var(--rd)}.cg .sval{color:var(--gn)}.ca .sval{color:var(--ac)}.cs .sval{color:var(--sk)}.cpu .sval{color:var(--pu)}
+.comm-hero{border-radius:18px;padding:18px 17px;position:relative;overflow:hidden}
+.comm-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.08)}
+.ch-pend{background:linear-gradient(135deg,#2a1e08 0%,#5a3a10 50%,#c8a040 100%);box-shadow:0 8px 30px rgba(200,160,64,.3)}
+.ch-paid{background:linear-gradient(135deg,#0a2818 0%,#165a30 55%,#28b870 100%);box-shadow:0 8px 30px rgba(40,184,112,.3)}
+.ch-over{background:linear-gradient(135deg,#2a0e12 0%,#5a1820 55%,#e05060 100%);box-shadow:0 8px 30px rgba(224,80,96,.3)}
+[data-theme="light"] .ch-pend{background:linear-gradient(135deg,#3a2810 0%,#7a5020 55%,#906820 100%)}
+[data-theme="light"] .ch-paid{background:linear-gradient(135deg,#0a3820 0%,#1a6840 55%,#0e8848 100%)}
+[data-theme="light"] .ch-over{background:linear-gradient(135deg,#3a0e18 0%,#7a2030 55%,#b82030 100%)}
+.rl{font-size:10px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.7px}
+.rv{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;letter-spacing:-.8px;margin:4px 0 2px}
+.rs{font-size:12px;color:rgba(255,255,255,.6)}
+.rb{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.15);border-radius:20px;padding:4px 11px;font-size:11px;font-weight:700;color:#fff;margin-top:9px}
+.all-hero{border-radius:18px;padding:16px 17px;background:var(--sf);border:1px solid var(--bd);box-shadow:var(--sh)}
+.feed{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:3px 13px;box-shadow:var(--sh);transition:background var(--t)}
+.fi{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--bd)}.fi:last-child{border-bottom:none}
+.fd{width:7px;height:7px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.dp{background:var(--ac)}.dr{background:var(--rd)}.dg{background:var(--gn)}.da{background:var(--ac)}.ds{background:var(--sk)}.dpu{background:var(--pu)}
+.ft{flex:1;font-size:13px;line-height:1.5;color:var(--tx2)}.ft strong{color:var(--tx);font-weight:600}.ftm{font-size:11px;color:var(--tx3);margin-top:2px}
+.sth{font-family:'Playfair Display',serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:space-between}
+.sth a{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--ac);cursor:pointer}
+.ibox{background:var(--sf2);border-radius:13px;padding:3px 13px;transition:background var(--t)}
+.dr2{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd)}.dr2:last-child{border-bottom:none}
+.dl{font-size:13px;color:var(--tx2)}.dv{font-size:13px;font-weight:600;text-align:right}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;padding:6px 13px;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer;background:var(--sf2);color:var(--tx2);border:1px solid var(--bd2);transition:all .14s}
+.chip.on{background:var(--ac);color:#fff;border-color:transparent}
+.pill{display:inline-block;padding:2px 8px;border-radius:20px;font-size:9.5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;margin-top:3px}
+.phot{background:var(--rd2);color:var(--rd)}.pwarm{background:var(--ac2);color:var(--ac)}.pfol{background:var(--sk2);color:var(--sk)}.pcls{background:var(--gn2);color:var(--gn)}.pcld{background:var(--sf3);color:var(--tx3)}
+.note{font-size:12px;color:var(--tx3);text-align:center}
+.abox{background:var(--ac2);border:1px solid var(--ac3);border-radius:12px;padding:11px 13px;font-size:13px;color:var(--tx2)}
+.rbox{background:var(--rd2);border:1px solid rgba(224,80,96,.2);border-radius:12px;padding:11px 13px;font-size:13px;color:var(--tx2)}
+.bar-chart{display:flex;align-items:flex-end;gap:5px;height:72px;padding-top:8px}
+.bw{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:100%;border-radius:4px 4px 0 0;background:var(--ac2)}.bar.on{background:var(--ac)}.blbl{font-size:10px;color:var(--tx3);font-weight:600}
+.lock-screen{position:absolute;inset:0;background:var(--bg);z-index:100;display:none;flex-direction:column;justify-content:center;align-items:center;padding:36px 24px;text-align:center;gap:15px}
+.lock-screen.show{display:flex}
+#s-login{justify-content:center;align-items:center;padding:40px 24px}
+.sp-mark{width:64px;height:64px;border-radius:20px;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.sp-card{width:100%;background:var(--sf);border-radius:20px;border:1px solid var(--bd2);padding:22px 18px;display:flex;flex-direction:column;gap:13px;box-shadow:var(--sh2);margin-top:32px;transition:background var(--t)}
+.av{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;font-weight:700;flex-shrink:0}
+.av-p{background:var(--ac2);color:var(--ac)}.av-r{background:var(--rd2);color:var(--rd)}.av-g{background:var(--gn2);color:var(--gn)}.av-s{background:var(--sk2);color:var(--sk)}
+.mov{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(6px)}
+.mov.open{display:flex}
+.msh{width:100%;max-width:430px;background:var(--sf);border-radius:22px 22px 0 0;padding:18px 16px calc(38px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:13px;animation:su .28s cubic-bezier(.34,1.2,.64,1);max-height:90vh;overflow-y:auto;transition:background var(--t)}
+.msh::-webkit-scrollbar{display:none}
+.mhd{width:34px;height:3px;border-radius:2px;background:var(--bd3);margin:0 auto 5px;flex-shrink:0}
+.mtit{font-family:'Playfair Display',serif;font-size:17px;font-weight:700}
+.msub{font-size:13px;color:var(--tx2);line-height:1.5}
+
+/* ====================================================
+   RESPONSIVE LAYOUT - Phone, Tablet, Laptop, Desktop
+   ==================================================== */
+
+/* BASE: Mobile first - current layout stays as-is */
+.app{width:100%;max-width:430px;height:100vh;position:relative;overflow:hidden}
+
+/* ── TABLET (768px+) ── */
+@media(min-width:768px){
+  body{align-items:flex-start;padding:20px}
+  .app{max-width:680px;height:calc(100vh - 40px);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden}
+  .sb{padding:20px 20px 100px;gap:16px}
+  .tbar{padding:14px 20px}
+  .bnav{padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
+  .ni .ico{font-size:22px}
+  .ni .nl{font-size:10px}
+  .nadd{width:52px;height:52px;font-size:26px}
+  .card{border-radius:20px}
+  .msh{border-radius:28px 28px 0 0;padding:22px 20px calc(48px + env(safe-area-inset-bottom))}
+  .rv{font-size:32px}
+  .sval{font-size:26px}
+  .btn{padding:15px;font-size:15px;border-radius:15px}
+  .inp{padding:13px 16px;font-size:15px}
+  .g2{gap:12px}.g3{gap:12px}.g4{gap:12px}
+  .sc{padding:16px 14px;border-radius:18px}
+  .qc{padding:16px 14px}
+  .crow{padding:14px 18px}
+  #s-splash{padding:48px 32px}
+  .sp-card{padding:28px 24px;border-radius:24px}
+  .sp-mark{width:80px;height:80px;border-radius:26px;font-size:38px}
+  .code-inp{font-size:28px;padding:16px}
+}
+
+/* ── LAPTOP / DESKTOP (1024px+) ── */
+@media(min-width:1024px){
+  body{padding:0;align-items:stretch;justify-content:flex-start}
+  .app{max-width:100%;width:100%;height:100vh;border-radius:0;box-shadow:none;display:flex;flex-direction:row}
+
+  /* Sidebar navigation */
+  .bnav{
+    position:relative;
+    width:220px;
+    height:100vh;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:stretch;
+    padding:24px 12px;
+    border-top:none;
+    border-right:1px solid var(--bd);
+    gap:4px;
+    flex-shrink:0;
+    overflow-y:auto;
+  }
+  .ni{
+    flex:none;
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items:center;
+    gap:12px;
+    padding:11px 14px;
+    border-radius:12px;
+    transition:background .16s;
+  }
+  .ni:hover{background:var(--sf2)}
+  .ni.on{background:var(--ac2)}
+  .ni .ico{font-size:20px;opacity:.7;transform:none}
+  .ni.on .ico{opacity:1}
+  .ni .nl{font-size:13px;font-weight:600;color:var(--tx2);letter-spacing:0;text-transform:none}
+  .ni.on .nl{color:var(--ac);font-weight:700}
+  .nadd{display:none}
+
+  /* Sidebar brand header */
+  .bnav::before{
+    content:'StayFlow';
+    display:block;
+    font-family:'Playfair Display',serif;
+    font-weight:900;
+    font-size:20px;
+    color:var(--ac);
+    padding:4px 14px 20px;
+    border-bottom:1px solid var(--bd);
+    margin-bottom:12px;
+    letter-spacing:-.3px;
+  }
+
+  /* Main content area */
+  .screen{
+    position:relative;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    opacity:1;
+    pointer-events:all;
+    transform:none;
+    height:100vh;
+    overflow:hidden;
+  }
+  .screen:not(.active){display:none}
+
+  /* Top bar adjustments */
+  .tbar{padding:16px 28px}
+  .sb{padding:24px 28px 40px;gap:18px;max-width:900px}
+  
+  /* Wider grids on desktop */
+  .g2{grid-template-columns:1fr 1fr 1fr 1fr}
+  .g3{grid-template-columns:repeat(6,1fr)}
+  .g4{grid-template-columns:1fr 1fr 1fr 1fr}
+  .qa{grid-template-columns:1fr 1fr 1fr 1fr}
+
+  /* Cards */
+  .card{border-radius:16px}
+  .msh{max-width:520px;left:50%;transform:translateX(-50%);border-radius:20px 20px 0 0}
+  .mov{justify-content:center;align-items:center}
+  .msh{border-radius:20px;margin-bottom:0;animation:none;max-height:85vh}
+  
+  /* Splash/login centered */
+  #s-splash,#s-login{
+    justify-content:center;
+    align-items:center;
+    padding:40px 60px;
+  }
+  .sp-card{max-width:440px}
+  
+  .rv{font-size:36px}
+  .sval{font-size:28px}
+  .btn{font-size:15px}
+}
+
+/* ── LARGE DESKTOP (1400px+) ── */
+@media(min-width:1400px){
+  .bnav{width:260px}
+  .sb{max-width:1100px;padding:28px 40px 40px}
+  .g2{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(6,1fr)}
+  .qa{grid-template-columns:repeat(4,1fr)}
+  .tbar{padding:18px 40px}
+  .rv{font-size:40px}
+}
+
+/* ── FIX: screens off-screen on desktop (remove absolute positioning) ── */
+@media(min-width:1024px){
+  .screen{transform:none !important;opacity:1 !important}
+  .screen:not(.active){display:none !important;opacity:0 !important}
+}
+
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+
+#s-pin{justify-content:center;align-items:center;padding:40px 24px;background:var(--bg);}
+.pin-display{display:flex;gap:14px;justify-content:center;margin:28px 0 32px;}
+.pin-dot{width:16px;height:16px;border-radius:50%;background:var(--bd3);transition:background .15s;}
+.pin-dot.filled{background:var(--ac);}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:280px;margin:0 auto;}
+.pin-key{height:64px;border-radius:16px;background:var(--sf);border:1px solid var(--bd2);
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--tx);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;box-shadow:var(--sh);}
+.pin-key:active{transform:scale(.93);background:var(--ac);color:#fff;border-color:var(--ac);}
+.pin-key.del{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;color:var(--tx2);}
+.pin-key.empty{background:transparent;border:none;box-shadow:none;cursor:default;}
+.pin-error{font-size:13px;color:var(--rd);text-align:center;margin-top:8px;min-height:18px;}
+.pin-forgot{font-size:12px;color:var(--ac);cursor:pointer;text-align:center;margin-top:16px;font-weight:600;}
+</style>
+
+
+  <!-- ── PWA INSTALL ─────────────────────────────────────────── -->
+  <link rel="manifest" id="pwa-manifest" href="data:application/json;base64,eyJuYW1lIjogIlN0YXlGbG93IFNhbGVzIiwgInNob3J0X25hbWUiOiAiU0YgU2FsZXMiLCAiZGVzY3JpcHRpb24iOiAiU3RheUZsb3cgUHJvcGVydHkgTWFuYWdlbWVudCIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGYxMTE3IiwgInRoZW1lX2NvbG9yIjogIiNjOGEwNDAiLCAic3RhcnRfdXJsIjogIi4vIiwgInNjb3BlIjogIi4vIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0ExTVRJZ05URXlJajQ4Y21WamRDQjNhV1IwYUQwaU5URXlJaUJvWldsbmFIUTlJalV4TWlJZ2NuZzlJakV3TUNJZ1ptbHNiRDBpSTJNNFlUQTBNQ0l2UGp4MFpYaDBJSGc5SWpJMU5pSWdlVDBpTXpRd0lpQm1iMjUwTFdaaGJXbHNlVDBpUjJWdmNtZHBZU3h6WlhKcFppSWdabTl1ZEMxemFYcGxQU0l5TmpBaUlHWnZiblF0ZDJWcFoyaDBQU0ppYjJ4a0lpQm1hV3hzUFNKM2FHbDBaU0lnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJK1V6d3ZkR1Y0ZEQ0OEwzTjJaejQ9IiwgInNpemVzIjogIjE5MngxOTIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIn0sIHsic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0ExTVRJZ05URXlJajQ4Y21WamRDQjNhV1IwYUQwaU5URXlJaUJvWldsbmFIUTlJalV4TWlJZ2NuZzlJakV3TUNJZ1ptbHNiRDBpSTJNNFlUQTBNQ0l2UGp4MFpYaDBJSGc5SWpJMU5pSWdlVDBpTXpRd0lpQm1iMjUwTFdaaGJXbHNlVDBpUjJWdmNtZHBZU3h6WlhKcFppSWdabTl1ZEMxemFYcGxQU0l5TmpBaUlHWnZiblF0ZDJWcFoyaDBQU0ppYjJ4a0lpQm1hV3hzUFNKM2FHbDBaU0lnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJK1V6d3ZkR1Y0ZEQ0OEwzTjJaejQ9IiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIn1dfQ==">
+  <meta name="theme-color" content="#c8a040">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="StayFlow Sales">
+  <meta name="application-name" content="StayFlow Sales">
+
+  <!-- Install banner CSS -->
+  <style>
+  #pwa-banner{
+    position:fixed;bottom:0;left:0;right:0;z-index:9999;
+    background:#3a2800;
+    padding:14px 16px calc(14px + env(safe-area-inset-bottom));
+    display:flex;align-items:center;gap:13px;
+    box-shadow:0 -4px 24px rgba(0,0,0,.35);
+    transform:translateY(100%);
+    transition:transform .35s cubic-bezier(.34,1.2,.64,1);
+    border-radius:18px 18px 0 0;
+  }
+  #pwa-banner.show{transform:translateY(0);}
+  #pwa-banner-icon{
+    width:48px;height:48px;border-radius:12px;
+    background:rgba(255,255,255,.15);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  #pwa-banner-icon svg{width:28px;height:28px;}
+  #pwa-banner-text{flex:1;}
+  #pwa-banner-title{font-size:14px;font-weight:700;color:#fff;}
+  #pwa-banner-sub{font-size:12px;color:rgba(255,255,255,.7);margin-top:2px;}
+  #pwa-install-btn{
+    background:#fff;color:#3a2800;
+    border:none;border-radius:10px;
+    padding:9px 16px;font-size:13px;font-weight:700;
+    cursor:pointer;white-space:nowrap;flex-shrink:0;
+  }
+  #pwa-dismiss{
+    background:none;border:none;color:rgba(255,255,255,.5);
+    font-size:20px;cursor:pointer;padding:4px;flex-shrink:0;
+    line-height:1;
+  }
+  /* iOS install hint */
+  #ios-hint{
+    position:fixed;bottom:0;left:0;right:0;z-index:9999;
+    background:#3a2800;
+    padding:16px 18px calc(16px + env(safe-area-inset-bottom));
+    box-shadow:0 -4px 24px rgba(0,0,0,.35);
+    border-radius:18px 18px 0 0;
+    display:none;
+  }
+  #ios-hint.show{display:block;}
+  #ios-hint-text{font-size:13px;color:#fff;line-height:1.6;text-align:center;}
+  #ios-hint-close{
+    position:absolute;top:12px;right:16px;
+    background:none;border:none;color:rgba(255,255,255,.5);font-size:20px;cursor:pointer;
+  }
+  </style>
+
+  <!-- Install Banner HTML -->
+  <div id="pwa-banner">
+    <div id="pwa-banner-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
+    </div>
+    <div id="pwa-banner-text">
+      <div id="pwa-banner-title">StayFlow Sales</div>
+      <div id="pwa-banner-sub">Add to home screen &mdash; works offline</div>
+    </div>
+    <button id="pwa-install-btn">Install</button>
+    <button id="pwa-dismiss">&times;</button>
+  </div>
+
+  <!-- iOS hint (Safari doesn't support beforeinstallprompt) -->
+  <div id="ios-hint">
+    <button id="ios-hint-close">&times;</button>
+    <div id="ios-hint-text">
+      To install: tap <strong>Share</strong> &#x2197; then <strong>Add to Home Screen</strong>
+    </div>
+  </div>
+
+  <script>
+  // ── Service Worker (inline, registered as blob) ───────────────
+  (function(){
+    var SW_CODE = `
+self.addEventListener('install',function(e){self.skipWaiting();});
+self.addEventListener('activate',function(e){e.waitUntil(clients.claim());});
+self.addEventListener('fetch',function(e){
+  if(e.request.method!=='GET')return;
+  e.respondWith(
+    caches.open('sf-v1').then(function(cache){
+      return cache.match(e.request).then(function(cached){
+        var fresh=fetch(e.request).then(function(r){
+          if(r&&r.status===200&&e.request.url.startsWith('https'))cache.put(e.request,r.clone());
+          return r;
+        }).catch(function(){return cached;});
+        return cached||fresh;
+      });
+    })
+  );
+});
+`;
+    if('serviceWorker' in navigator){
+      try{
+        var blob=new Blob([SW_CODE],{type:'application/javascript'});
+        var swUrl=URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl,{scope:'./'
+        }).then(function(reg){
+          console.log('SW registered');
+        }).catch(function(e){
+          // Blob SW may be blocked on some hosts — fallback silent
+          console.log('SW fallback:',e.message);
+        });
+      }catch(e){console.log('SW error:',e);}
+    }
+  })();
+
+  // ── Install prompt ────────────────────────────────────────────
+  var _deferredPrompt = null;
+  var _banner = document.getElementById('pwa-banner');
+  var _iosHint = document.getElementById('ios-hint');
+
+  function isIOS(){
+    return /iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream;
+  }
+  function isInStandaloneMode(){
+    return window.matchMedia('(display-mode: standalone)').matches||
+           window.navigator.standalone===true;
+  }
+  function wasInstallDismissed(){
+    return localStorage.getItem('pwa_dismissed_sales');
+  }
+
+  window.addEventListener('beforeinstallprompt',function(e){
+    e.preventDefault();
+    _deferredPrompt=e;
+    if(!isInStandaloneMode()&&!wasInstallDismissed()){
+      setTimeout(function(){_banner&&_banner.classList.add('show');},1200);
+    }
+  });
+
+  window.addEventListener('appinstalled',function(){
+    _banner&&_banner.classList.remove('show');
+    _deferredPrompt=null;
+  });
+
+  document.getElementById('pwa-install-btn').addEventListener('click',function(){
+    _banner&&_banner.classList.remove('show');
+    if(_deferredPrompt){
+      _deferredPrompt.prompt();
+      _deferredPrompt.userChoice.then(function(r){
+        if(r.outcome==='accepted')localStorage.setItem('pwa_dismissed_sales','1');
+        _deferredPrompt=null;
+      });
+    }
+  });
+
+  document.getElementById('pwa-dismiss').addEventListener('click',function(){
+    _banner&&_banner.classList.remove('show');
+    localStorage.setItem('pwa_dismissed_sales','1');
+  });
+
+  // iOS Safari — show manual hint
+  if(isIOS()&&!isInStandaloneMode()&&!wasInstallDismissed()){
+    setTimeout(function(){_iosHint&&_iosHint.classList.add('show');},1500);
+  }
+  document.getElementById('ios-hint-close').addEventListener('click',function(){
+    _iosHint&&_iosHint.classList.remove('show');
+    localStorage.setItem('pwa_dismissed_sales','1');
+  });
+  </script>
+  <!-- ── END PWA ─────────────────────────────────────────────── -->
+</head>
+<body>
+<div class="app">
+
+<!-- LOCKED -->
+<div id="s-locked" class="screen">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:36px 24px;text-align:center;gap:15px;overflow-y:auto">
+    <div style="font-size:60px">🔒</div>
+    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900">Account Locked</div>
+    <div style="font-size:14px;color:var(--tx2);line-height:1.7;max-width:290px">Your commission of <strong style="color:var(--ac)">TSh 80,000</strong> (Mar 3–9) was due on Friday March 14 and has not been marked paid.</div>
+    <div class="rbox" style="width:100%;text-align:left">Contact StayFlow HQ to resolve: <strong style="color:var(--rd)">+255 700 000 000</strong></div>
+    <button class="btn bp" style="width:100%" onclick="openM('m-confirm-comm')">💰 I've Received My Commission</button>
+    <div class="note" onclick="go('s-dash')" style="color:var(--ac);cursor:pointer;font-weight:700">← Back (demo only)</div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="s-login" class="screen active">
+  <div style="text-align:center;margin-bottom:28px">
+    <div class="logo" style="font-size:22px;justify-content:center;display:flex;margin-bottom:8px">Stay<em>Flow</em></div>
+    <div style="background:var(--am2);border:1px solid var(--am);border-radius:20px;padding:4px 16px;display:inline-block;font-size:11px;font-weight:700;color:var(--am);letter-spacing:1px">SALES AGENT</div>
+  </div>
+  <div class="sp-card">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700" id="sales-login-title">Agent Sign In</div>
+    <div style="font-size:13px;color:var(--tx2);margin-top:3px" id="sales-login-sub">Enter your agent code to continue</div>
+    <div class="fc" id="sales-code-field">
+      <div class="lbl">Agent Code</div>
+      <input class="inp" id="sales-agent-code" placeholder="SFA-XXXXXX" style="text-transform:uppercase;letter-spacing:2px;font-weight:700">
+    </div>
+    <div id="sales-pin-area" style="display:none">
+      <div class="pin-display">
+        <div class="pin-dot" id="spd0"></div>
+        <div class="pin-dot" id="spd1"></div>
+        <div class="pin-dot" id="spd2"></div>
+        <div class="pin-dot" id="spd3"></div>
+      </div>
+      <div class="pin-pad">
+        <div class="pin-key" onclick="salesPinKey('1')">1</div>
+        <div class="pin-key" onclick="salesPinKey('2')">2</div>
+        <div class="pin-key" onclick="salesPinKey('3')">3</div>
+        <div class="pin-key" onclick="salesPinKey('4')">4</div>
+        <div class="pin-key" onclick="salesPinKey('5')">5</div>
+        <div class="pin-key" onclick="salesPinKey('6')">6</div>
+        <div class="pin-key" onclick="salesPinKey('7')">7</div>
+        <div class="pin-key" onclick="salesPinKey('8')">8</div>
+        <div class="pin-key" onclick="salesPinKey('9')">9</div>
+        <div class="pin-key empty"></div>
+        <div class="pin-key" onclick="salesPinKey('0')">0</div>
+        <div class="pin-key del" onclick="salesPinDel()">&#9003;</div>
+      </div>
+    </div>
+    <div class="pin-error" id="sales-login-error"></div>
+    <button class="btn bp" id="sales-next-btn" onclick="salesLoginNext()" style="background:var(--am);box-shadow:0 4px 16px rgba(200,160,64,.3)">Continue &rarr;</button>
+    <div class="pin-forgot" onclick="salesForgot()">Need help? Contact StayFlow</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="s-dash" class="screen">
+  <div class="tbar">
+    <div class="tbL"><div class="lmark">📈</div><div class="logo">Stay<em>Flow</em><sup style="font-size:8px;color:var(--tx3)">™</sup></div><div style="background:var(--ac2);border:1px solid var(--ac3);border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700;color:var(--ac)">SALES</div></div>
+    <div class="tbR"><div class="ib ic" id="thbtn" onclick="toggleTheme()">🌙</div><div class="bsm" style="background:var(--ac);color:#fff" onclick="openM('m-add-lead')">+ Lead</div></div>
+  </div>
+  <div class="sb">
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;letter-spacing:-.4px">Good morning,<br><span style="color:var(--ac)">Baraka</span> 👋</div>
+      <div style="font-size:12px;color:var(--tx2);margin-top:3px">Wednesday, 18 March · <span style="color:var(--ac);font-weight:700">Friday is payday 💰</span></div>
+    </div>
+    <div class="g2" style="gap:7px">
+      <div style="background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:12px"><div style="font-size:10px;color:var(--tx3)">Follow-ups today</div><div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ac);margin-top:2px">3</div></div>
+      <div style="background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:12px"><div style="font-size:10px;color:var(--tx3)">Hot leads</div><div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--rd);margin-top:2px">2</div></div>
+      <div style="background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:12px"><div style="font-size:10px;color:var(--tx3)">Closed this week</div><div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gn);margin-top:2px">4</div></div>
+      <div style="background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:12px"><div style="font-size:10px;color:var(--tx3)">Payout day</div><div style="font-size:13px;font-weight:700;color:var(--ac);margin-top:4px">Friday</div></div>
+    </div>
+    <!-- Commission hero -->
+    <div class="comm-hero ch-pend">
+      <div class="rl">THIS WEEK'S COMMISSION</div>
+      <div class="rv">TSh 160,000</div>
+      <div class="rs">4 accounts · Mar 10–16 · pending</div>
+      <div class="rb">Paid out every Friday</div>
+    </div>
+    <!-- All-time -->
+    <div class="all-hero">
+      <div style="font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.6px">ALL-TIME EARNINGS</div>
+      <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--ac);margin-top:4px">TSh 760,000</div>
+      <div style="font-size:12px;color:var(--tx2)">19 total accounts · since Jan 2026</div>
+    </div>
+    <!-- Recent leads -->
+    <div class="sth"><span>Recent Leads</span><a onclick="goN('s-leads',document.querySelector('.ni:nth-child(2)'))">See all →</a></div>
+    <div class="card">
+      <div class="crow" onclick="openM('m-lead')"><div class="av av-r">JM</div><div style="flex:1"><div style="font-size:14px;font-weight:600">Joyce Muhamed</div><div style="font-size:12px;color:var(--tx2);margin-top:1px">Karibu Apartments · Dodoma · 15 rooms</div><div class="pill phot">Hot 🔥</div></div><div style="font-size:11px;color:var(--tx3);text-align:right;white-space:nowrap">Today</div></div>
+      <div class="crow" onclick="openM('m-lead')"><div class="av av-p">DK</div><div style="flex:1"><div style="font-size:14px;font-weight:600">David Kiprop</div><div style="font-size:12px;color:var(--tx2);margin-top:1px">Safari Lodge · Arusha · 22 rooms</div><div class="pill pwarm">Warm</div></div><div style="font-size:11px;color:var(--tx3);text-align:right;white-space:nowrap">Yesterday</div></div>
+      <div class="crow" onclick="openM('m-lead')"><div class="av av-g">NK</div><div style="flex:1"><div style="font-size:14px;font-weight:600">Neema Kamau</div><div style="font-size:12px;color:var(--tx2);margin-top:1px">Green Villa · Mwanza · 8 rooms</div><div class="pill pfol">Follow-up</div></div><div style="font-size:11px;color:var(--tx3);text-align:right;white-space:nowrap">Mar 16</div></div>
+    </div>
+    <!-- Commission history preview -->
+    <div class="sth"><span>Commission History</span><a onclick="goN('s-comm',document.querySelector('.ni:nth-child(4)'))">View all →</a></div>
+    <div class="feed">
+      <div class="fi"><div class="fd dp"></div><div class="ft"><strong>Mar 10–16:</strong> 4 accounts · TSh 160,000<div class="ftm" style="display:flex;align-items:center;gap:6px"><span class="pill pwarm" style="margin-top:0">Pending Friday</span></div></div></div>
+      <div class="fi"><div class="fd dg"></div><div class="ft"><strong>Mar 3–9:</strong> 3 accounts · TSh 110,000<div class="ftm"><span class="pill pcls" style="margin-top:0">Paid ✓ Mar 14</span></div></div></div>
+      <div class="fi"><div class="fd dg"></div><div class="ft"><strong>Feb 24 – Mar 2:</strong> 5 accounts · TSh 185,000<div class="ftm"><span class="pill pcls" style="margin-top:0">Paid ✓ Mar 7</span></div></div></div>
+    </div>
+  </div>
+  <div class="bnav">
+    <div class="ni on" onclick="goN('s-dash',this)"><div class="ico">🏠</div><div class="nl">Home</div></div>
+    <div class="ni" onclick="goN('s-leads',this)"><div class="ico">👥</div><div class="nl">Leads</div></div>
+    <div class="ni" onclick="goN('s-pipeline',this)"><div class="ico">📈</div><div class="nl">Pipeline</div></div>
+    <div class="ni" onclick="goN('s-comm',this)"><div class="ico">💰</div><div class="nl">Comm.</div></div>
+    <div class="ni" onclick="goN('s-reports',this)"><div class="ico">📊</div><div class="nl">Reports</div></div>
+  </div>
+</div>
+
+<!-- LEADS -->
+<div id="s-leads" class="screen">
+  <div class="tbar"><div class="tbL"><div class="ib ic" onclick="go('s-dash')">←</div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:16px">My Leads</div></div><div class="tbR"><div class="ib ic" onclick="toggleTheme()">🌙</div><div class="bsm" style="background:var(--ac);color:#fff" onclick="openM('m-add-lead')">+ Add</div></div></div>
+  <div class="sb">
+    <input class="inp" placeholder="🔍  Search leads...">
+    <div class="chips"><div class="chip on">All (18)</div><div class="chip">Hot (2)</div><div class="chip">Warm (5)</div><div class="chip">Follow-up (4)</div><div class="chip">Closed (6)</div><div class="chip">Cold (1)</div></div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="card crow" onclick="openM('m-lead')"><div class="av av-r">JM</div><div style="flex:1"><div style="font-size:14px;font-weight:600">Joyce Muhamed</div><div style="font-size:12px;color:var(--tx2)">Karibu Apts · Dodoma · 15 rooms</div><div class="pill phot">Hot 🔥</div></div><div style="font-size:11px;color:var(--tx3)">Today</div></div>
+      <div class="card crow" onclick="openM('m-lead')"><div class="av av-s">BW</div><div style="flex:1"><div style="font-size:14px;font-weight:600">Brian Wanjiku</div><div style="font-size:12px;color:var(--tx2)">Skyview Lodge · Nakuru · 20 rooms</div><div class="pill phot">Hot 🔥</div></div><div style="font-size:11px;color:var(--tx3)">Mar 17</div></div>
+      <div class="card crow" onclick="openM('m-lead')"><div class="av av-p">DK</div><div style="flex:1"><div style="font-size:14px;font-weight:600">David Kiprop</div><div style="font-size:12px;color:var(--tx2)">Safari Lodge · Arusha · 22 rooms</div><div class="pill pwarm">Warm</div></div><div style="font-size:11px;color:var(--tx3)">Yesterday</div></div>
+      <div class="card crow" onclick="openM('m-lead')"><div class="av av-g">NK</div><div style="flex:1"><div style="font-size:14px;font-weight:600">Neema Kamau</div><div style="font-size:12px;color:var(--tx2)">Green Villa · Mwanza · 8 rooms</div><div class="pill pfol">Follow-up</div></div><div style="font-size:11px;color:var(--tx3)">Mar 16</div></div>
+      <div class="card crow" onclick="openM('m-lead')"><div class="av av-r">RA</div><div style="flex:1"><div style="font-size:14px;font-weight:600">Rose Atieno</div><div style="font-size:12px;color:var(--tx2)">Sunrise Inn · Kisumu · 12 rooms</div><div class="pill pfol">Follow-up</div></div><div style="font-size:11px;color:var(--tx3)">Mar 15</div></div>
+      <div class="card crow" onclick="openM('m-lead')"><div class="av av-g">AM</div><div style="flex:1"><div style="font-size:14px;font-weight:600">Ali Msomi</div><div style="font-size:12px;color:var(--tx2)">Bahari House · Tanga · 7 rooms</div><div class="pill pcls">Closed ✓</div></div><div style="font-size:11px;color:var(--tx3)">Mar 14</div></div>
+    </div>
+  </div>
+  <div class="bnav"><div class="ni" onclick="goN('s-dash',this)"><div class="ico">🏠</div><div class="nl">Home</div></div><div class="ni on"><div class="ico">👥</div><div class="nl">Leads</div></div><div class="ni" onclick="goN('s-pipeline',this)"><div class="ico">📈</div><div class="nl">Pipeline</div></div><div class="ni" onclick="goN('s-comm',this)"><div class="ico">💰</div><div class="nl">Comm.</div></div><div class="ni" onclick="goN('s-reports',this)"><div class="ico">📊</div><div class="nl">Reports</div></div></div>
+</div>
+
+<!-- PIPELINE -->
+<div id="s-pipeline" class="screen">
+  <div class="tbar"><div class="tbL"><div class="ib ic" onclick="go('s-dash')">←</div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:16px">My Pipeline</div></div><div class="tbR"><div class="ib ic" onclick="toggleTheme()">🌙</div></div></div>
+  <div class="sb">
+    <div class="g2">
+      <div class="sc cp"><div class="sico">🔥</div><div class="sval">2</div><div class="slb">Hot leads</div></div>
+      <div class="sc cg"><div class="sico">✅</div><div class="sval">4</div><div class="slb">Closed/week</div></div>
+      <div class="sc cs"><div class="sico">🎯</div><div class="sval">22%</div><div class="slb">Conversion</div></div>
+      <div class="sc cp"><div class="sico">💰</div><div class="sval" style="font-size:15px">490K</div><div class="slb">Commission potential</div></div>
+    </div>
+    <!-- Weekly target -->
+    <div class="card" style="padding:15px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-family:'Playfair Display',serif;font-weight:700">Weekly Target</div><div style="font-size:13px;color:var(--tx2)">4 / 5 accounts</div></div>
+      <div style="background:var(--sf3);border-radius:6px;height:10px;overflow:hidden"><div style="width:80%;height:100%;background:var(--ac);border-radius:6px;transition:width .5s"></div></div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:6px">1 more to hit target this week · <span style="color:var(--ac)">TSh 200,000+ potential</span></div>
+    </div>
+    <!-- Commission calculator -->
+    <div class="sth">Commission Calculator</div>
+    <div class="card" style="padding:15px;display:flex;flex-direction:column;gap:11px">
+      <div class="fr"><div class="fc"><div class="lbl">TIER 1</div><input class="inp" type="number" id="ct1" placeholder="0" oninput="calcComm()"></div><div class="fc"><div class="lbl">TIER 2</div><input class="inp" type="number" id="ct2" placeholder="0" oninput="calcComm()"></div><div class="fc"><div class="lbl">TIER 3</div><input class="inp" type="number" id="ct3" placeholder="0" oninput="calcComm()"></div></div>
+      <div style="background:var(--sf2);border-radius:12px;padding:13px;text-align:center;transition:background var(--t)"><div style="font-size:11px;color:var(--tx3);margin-bottom:4px">ESTIMATED COMMISSION</div><div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ac)" id="commResult">TSh 0</div></div>
+    </div>
+    <!-- Rates table -->
+    <div class="sth">Commission Rates</div>
+    <div class="card" style="padding:3px 14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--bd)"><div><div style="font-weight:600">Tier 1 — Basic</div><div style="font-size:12px;color:var(--tx2);margin-top:1px">TSh 100,000 once-off</div></div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ac)">TSh 10,000</div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--bd)"><div><div style="font-weight:600">Tier 2 — Cloud</div><div style="font-size:12px;color:var(--tx2);margin-top:1px">TSh 250,000/year</div></div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ac)">TSh 25,000</div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0"><div><div style="font-weight:600">Tier 3 — Multi-Property</div><div style="font-size:12px;color:var(--tx2);margin-top:1px">TSh 500,000/year</div></div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ac)">TSh 50,000</div></div>
+    </div>
+  </div>
+  <div class="bnav"><div class="ni" onclick="goN('s-dash',this)"><div class="ico">🏠</div><div class="nl">Home</div></div><div class="ni" onclick="goN('s-leads',this)"><div class="ico">👥</div><div class="nl">Leads</div></div><div class="ni on"><div class="ico">📈</div><div class="nl">Pipeline</div></div><div class="ni" onclick="goN('s-comm',this)"><div class="ico">💰</div><div class="nl">Comm.</div></div><div class="ni" onclick="goN('s-reports',this)"><div class="ico">📊</div><div class="nl">Reports</div></div></div>
+</div>
+
+<!-- COMMISSION -->
+<div id="s-comm" class="screen">
+  <div class="tbar"><div class="tbL"><div class="ib ic" onclick="go('s-dash')">←</div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:16px">My Commission</div></div><div class="tbR"><div class="ib ic" onclick="toggleTheme()">🌙</div></div></div>
+  <div class="sb">
+    <!-- All-time hero -->
+    <div class="comm-hero ch-paid">
+      <div class="rl">ALL-TIME EARNINGS</div>
+      <div class="rv">TSh 760,000</div>
+      <div class="rs">19 total accounts · since January 2026</div>
+      <div class="rb">Baraka Juma · active agent</div>
+    </div>
+    <div class="abox"><strong style="color:var(--ac)">Payout schedule:</strong> Every Friday. Admin marks paid → you confirm receipt → account stays active.</div>
+    <!-- Weekly history -->
+    <div class="sth">Weekly History</div>
+    <div class="feed">
+      <div class="fi"><div class="fd dp"></div><div class="ft"><strong>Mar 10–16 · TSh 160,000</strong><br>4 accounts: 3× Tier 1 + 1× Tier 2<div style="display:flex;gap:7px;margin-top:6px"><span class="pill pwarm" style="margin-top:0">Pending Friday</span><span style="background:var(--ac2);color:var(--ac);border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700;cursor:pointer" onclick="openM('m-breakdown')">Breakdown</span></div></div></div>
+      <div class="fi"><div class="fd dg"></div><div class="ft"><strong>Mar 3–9 · TSh 110,000</strong><br>3 accounts: 1× Tier 1 + 1× Tier 2 + 1× Tier 1<div style="display:flex;gap:7px;margin-top:6px"><span class="pill pcls" style="margin-top:0">Paid ✓ Mar 14</span><span style="background:var(--gn2);color:var(--gn);border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700;cursor:pointer" onclick="openM('m-breakdown')">Breakdown</span></div></div></div>
+      <div class="fi"><div class="fd dg"></div><div class="ft"><strong>Feb 24 – Mar 2 · TSh 185,000</strong><br>5 accounts: 3× Tier 1 + 2× Tier 2<div style="display:flex;gap:7px;margin-top:6px"><span class="pill pcls" style="margin-top:0">Paid ✓ Mar 7</span><span style="background:var(--gn2);color:var(--gn);border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700;cursor:pointer" onclick="openM('m-breakdown')">Breakdown</span></div></div></div>
+      <div class="fi"><div class="fd dg"></div><div class="ft"><strong>Feb 17–23 · TSh 130,000</strong><br>3 accounts<div style="margin-top:4px"><span class="pill pcls" style="margin-top:0">Paid ✓ Feb 28</span></div></div></div>
+      <div class="fi"><div class="fd dg"></div><div class="ft"><strong>Feb 10–16 · TSh 175,000</strong><br>4 accounts<div style="margin-top:4px"><span class="pill pcls" style="margin-top:0">Paid ✓ Feb 21</span></div></div></div>
+    </div>
+    <!-- Rates -->
+    <div class="sth">Rates Reference</div>
+    <div class="card" style="padding:3px 14px">
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd)"><span style="font-size:13px">Tier 1</span><span style="font-family:'Playfair Display',serif;font-weight:700;color:var(--ac)">TSh 10,000</span></div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd)"><span style="font-size:13px">Tier 2</span><span style="font-family:'Playfair Display',serif;font-weight:700;color:var(--ac)">TSh 25,000</span></div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0"><span style="font-size:13px">Tier 3</span><span style="font-family:'Playfair Display',serif;font-weight:700;color:var(--ac)">TSh 50,000</span></div>
+    </div>
+  </div>
+  <div class="bnav"><div class="ni" onclick="goN('s-dash',this)"><div class="ico">🏠</div><div class="nl">Home</div></div><div class="ni" onclick="goN('s-leads',this)"><div class="ico">👥</div><div class="nl">Leads</div></div><div class="ni" onclick="goN('s-pipeline',this)"><div class="ico">📈</div><div class="nl">Pipeline</div></div><div class="ni on"><div class="ico">💰</div><div class="nl">Comm.</div></div><div class="ni" onclick="goN('s-reports',this)"><div class="ico">📊</div><div class="nl">Reports</div></div></div>
+</div>
+
+<!-- REPORTS -->
+<div id="s-reports" class="screen">
+  <div class="tbar"><div class="tbL"><div class="ib ic" onclick="go('s-dash')">←</div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:16px">My Reports</div></div><div class="tbR"><div class="ib ic" onclick="toggleTheme()">🌙</div></div></div>
+  <div class="sb">
+    <div class="g3"><div class="sc cp"><div class="sico">📈</div><div class="sval">19</div><div class="slb">Total sales</div></div><div class="sc cg"><div class="sico">💰</div><div class="sval" style="font-size:14px">760K</div><div class="slb">Earned</div></div><div class="sc cs"><div class="sico">🎯</div><div class="sval">22%</div><div class="slb">Conversion</div></div></div>
+    <div class="card" style="padding:15px"><div style="font-size:10px;font-weight:700;color:var(--tx2);margin-bottom:11px;text-transform:uppercase;letter-spacing:.5px">WEEKLY SALES — LAST 7 WEEKS</div><div class="bar-chart"><div class="bw"><div class="bar" style="height:30%"></div><div class="blbl">W1</div></div><div class="bw"><div class="bar" style="height:55%"></div><div class="blbl">W2</div></div><div class="bw"><div class="bar" style="height:45%"></div><div class="blbl">W3</div></div><div class="bw"><div class="bar" style="height:70%"></div><div class="blbl">W4</div></div><div class="bw"><div class="bar" style="height:60%"></div><div class="blbl">W5</div></div><div class="bw"><div class="bar" style="height:75%"></div><div class="blbl">W6</div></div><div class="bw"><div class="bar on" style="height:80%"></div><div class="blbl" style="color:var(--ac)">W7</div></div></div></div>
+    <div class="card">
+      <div class="crow" onclick="openM('m-report-gen')"><div style="font-size:19px">📈</div><div style="flex:1"><div style="font-weight:600">Weekly Sales Report</div><div style="font-size:12px;color:var(--tx2)">Leads contacted, closed, commission</div></div><div style="color:var(--ac);font-weight:700">→</div></div>
+      <div class="crow" onclick="openM('m-report-gen')"><div style="font-size:19px">💰</div><div style="flex:1"><div style="font-weight:600">Commission Report</div><div style="font-size:12px;color:var(--tx2)">Paid, pending, breakdown</div></div><div style="color:var(--ac);font-weight:700">→</div></div>
+      <div class="crow" onclick="openM('m-report-gen')"><div style="font-size:19px">👥</div><div style="flex:1"><div style="font-weight:600">Lead Pipeline Report</div><div style="font-size:12px;color:var(--tx2)">Status, follow-ups, conversion</div></div><div style="color:var(--ac);font-weight:700">→</div></div>
+      <div class="crow" onclick="openM('m-report-gen')"><div style="font-size:19px">🗓️</div><div style="flex:1"><div style="font-weight:600">Monthly Summary</div><div style="font-size:12px;color:var(--tx2)">Full month activity and earnings</div></div><div style="color:var(--ac);font-weight:700">→</div></div>
+    </div>
+    <div class="sth">Saved Reports</div>
+    <div class="feed" id="savedReps">
+      <div class="fi"><div class="fd dg"></div><div class="ft"><strong>Weekly Sales — Mar 3–9</strong><br>3 sales · TSh 110,000<div style="display:flex;gap:7px;margin-top:5px"><span style="background:var(--ac2);color:var(--ac);border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700;cursor:pointer" onclick="openM('m-saved-rep')">View</span><span style="background:var(--gn2);color:var(--gn);border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700;cursor:pointer">WhatsApp</span></div></div></div>
+    </div>
+  </div>
+  <div class="bnav"><div class="ni" onclick="goN('s-dash',this)"><div class="ico">🏠</div><div class="nl">Home</div></div><div class="ni" onclick="goN('s-leads',this)"><div class="ico">👥</div><div class="nl">Leads</div></div><div class="ni" onclick="goN('s-pipeline',this)"><div class="ico">📈</div><div class="nl">Pipeline</div></div><div class="ni" onclick="goN('s-comm',this)"><div class="ico">💰</div><div class="nl">Comm.</div></div><div class="ni on"><div class="ico">📊</div><div class="nl">Reports</div></div></div>
+</div>
+
+<!-- MODALS -->
+<div id="m-confirm-comm" class="mov" onclick="cmb(event,'m-confirm-comm')"><div class="msh"><div class="mhd"></div><div class="mtit">💰 Confirm Commission Receipt</div><div class="ibox"><div class="dr2"><div class="dl">Period</div><div class="dv">Mar 3–9, 2026</div></div><div class="dr2"><div class="dl">Amount</div><div class="dv" style="color:var(--ac);font-family:'Playfair Display',serif;font-size:18px;font-weight:700">TSh 80,000</div></div><div class="dr2"><div class="dl">Paid via</div><div class="dv">M-Pesa</div></div></div><div class="msub">By confirming, you acknowledge receipt. Your account will be unlocked immediately.</div><button class="btn bp" onclick="go('s-dash');closeM('m-confirm-comm')">✓ Yes, I Received TSh 80,000</button><button class="btn bg" onclick="closeM('m-confirm-comm')">Cancel</button></div></div>
+
+<div id="m-lead" class="mov" onclick="cmb(event,'m-lead')"><div class="msh"><div class="mhd"></div><div style="display:flex;align-items:center;gap:11px"><div class="av av-r" style="width:46px;height:46px;border-radius:14px;font-size:16px">JM</div><div><div class="mtit">Joyce Muhamed</div><div style="font-size:13px;color:var(--tx2)">Karibu Apartments · Dodoma</div></div></div><div class="ibox"><div class="dr2"><div class="dl">Phone</div><div class="dv">+255 765 000 111</div></div><div class="dr2"><div class="dl">Rooms</div><div class="dv">15 · Apartment block</div></div><div class="dr2"><div class="dl">Status</div><div class="dv"><span class="pill phot">Hot 🔥</span></div></div><div class="dr2"><div class="dl">Notes</div><div class="dv" style="font-size:12px;color:var(--tx2)">Very interested in Tier 2. Demo done.</div></div></div><div class="fr"><button class="btn bg" style="flex:1;font-size:13px;padding:10px" onclick="closeM('m-lead')">✏️ Update</button><button class="btn bwa" style="flex:1;font-size:13px;padding:10px" onclick="closeM('m-lead')">💬 WhatsApp</button></div><button class="btn bp" onclick="closeM('m-lead');openM('m-close-sale')">✓ Mark as Closed</button><button class="btn bg" onclick="closeM('m-lead')">Close</button></div></div>
+
+<div id="m-close-sale" class="mov" onclick="cmb(event,'m-close-sale')"><div class="msh"><div class="mhd"></div><div class="mtit">🎉 Close Sale</div><div class="msub">Once you close a sale, it's added to your commission queue and StayFlow HQ generates the activation code.</div><div class="ibox"><div class="dr2"><div class="dl">Client</div><div class="dv">Joyce Muhamed</div></div><div class="dr2"><div class="dl">Property</div><div class="dv">Karibu Apartments · Dodoma</div></div></div><div class="fc"><div class="lbl">TIER SOLD</div><select class="inp sel"><option>Tier 1 — Basic · TSh 10,000 comm.</option><option>Tier 2 — Cloud · TSh 25,000 comm.</option><option>Tier 3 — Multi-Property · TSh 50,000 comm.</option></select></div><div class="fc"><div class="lbl">PAYMENT COLLECTED</div><select class="inp sel"><option>Cash (you collected)</option><option>M-Pesa (confirm reference)</option><option>Client pays StayFlow directly</option></select></div><div class="fc"><div class="lbl">REFERENCE (IF ANY)</div><input class="inp" placeholder="M-Pesa ref or note..."></div><div class="abox"><strong style="color:var(--ac)">Your commission</strong> is auto-added to this week's payout. HQ will generate the activation code and send to client.</div><button class="btn bp" onclick="closeM('m-close-sale')">✓ Confirm Sale Closed</button><button class="btn bg" onclick="closeM('m-close-sale')">Cancel</button></div></div>
+
+<div id="m-add-lead" class="mov" onclick="cmb(event,'m-add-lead')"><div class="msh"><div class="mhd"></div><div class="mtit">👥 Add Lead</div><div class="fc"><div class="lbl">FULL NAME</div><input class="inp" placeholder="Property owner's name"></div><div class="fc"><div class="lbl">PHONE</div><input class="inp" type="tel" placeholder="+255 7XX XXX XXX"></div><div class="fr"><div class="fc"><div class="lbl">CITY</div><input class="inp" placeholder="e.g. Arusha"></div><div class="fc"><div class="lbl">ROOMS</div><input class="inp" type="number" placeholder="10"></div></div><div class="fc"><div class="lbl">PROPERTY TYPE</div><select class="inp sel"><option>Guesthouse</option><option>Lodge</option><option>Airbnb</option><option>Apartment</option><option>Hotel</option><option>Other</option></select></div><div class="fc"><div class="lbl">STATUS</div><select class="inp sel"><option>Cold</option><option>Warm</option><option>Hot 🔥</option><option>Follow-up</option></select></div><div class="fc"><div class="lbl">NOTES</div><textarea class="inp ta" rows="3" placeholder="Initial notes..."></textarea></div><button class="btn bp" onclick="closeM('m-add-lead')">✓ Add Lead</button><button class="btn bg" onclick="closeM('m-add-lead')">Cancel</button></div></div>
+
+<div id="m-breakdown" class="mov" onclick="cmb(event,'m-breakdown')"><div class="msh"><div class="mhd"></div><div class="mtit">📋 Commission Breakdown — Mar 10–16</div><div class="ibox"><div class="dr2"><div class="dl">Ali Msomi · Tier 1</div><div class="dv" style="color:var(--ac)">TSh 10,000</div></div><div class="dr2"><div class="dl">Grace Odhiambo · Tier 1</div><div class="dv" style="color:var(--ac)">TSh 10,000</div></div><div class="dr2"><div class="dl">Patrick Mwamba · Tier 1</div><div class="dv" style="color:var(--ac)">TSh 10,000</div></div><div class="dr2"><div class="dl">Aisha Binte · Tier 2</div><div class="dv" style="color:var(--ac)">TSh 25,000</div></div><div style="display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--bd2);font-family:'Playfair Display',serif;font-size:15px;font-weight:700"><span>Total</span><span style="color:var(--ac)">TSh 55,000</span></div></div><div class="note" style="font-size:12px;color:var(--rd)">Note: this is week 1 of 2 — full period total is TSh 160,000</div><button class="btn bg" onclick="closeM('m-breakdown')">Close</button></div></div>
+
+<div id="m-report-gen" class="mov" onclick="cmb(event,'m-report-gen')"><div class="msh"><div class="mhd"></div><div class="mtit">📊 Generate Report</div><div class="fc"><div class="lbl">TYPE</div><select class="inp sel"><option>Weekly Sales Report</option><option>Commission Report</option><option>Lead Pipeline Report</option><option>Monthly Summary</option></select></div><div class="fr"><div class="fc"><div class="lbl">FROM</div><input class="inp" type="date"></div><div class="fc"><div class="lbl">TO</div><input class="inp" type="date"></div></div><div style="background:var(--sf2);border-radius:13px;padding:14px;font-size:13px;line-height:1.7;border:1px solid var(--bd2)"><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:14px;color:var(--ac);margin-bottom:8px">Preview: Weekly Sales — Mar 10–16</div><div>📈 Sales: <strong style="color:var(--ac)">4</strong></div><div>💰 Commission: <strong style="color:var(--ac)">TSh 160,000</strong></div><div>👥 Leads contacted: <strong>9</strong></div><div>🎯 Conversion: <strong>44%</strong></div></div><button class="btn bp" onclick="saveReport()">💾 Save Report</button><button class="btn bwa" onclick="closeM('m-report-gen')">📤 Send via WhatsApp</button><button class="btn bg" onclick="closeM('m-report-gen')">Cancel</button></div></div>
+
+<div id="m-saved-rep" class="mov" onclick="cmb(event,'m-saved-rep')"><div class="msh"><div class="mhd"></div><div class="mtit">📄 Weekly Sales — Mar 3–9</div><div style="background:var(--sf2);border-radius:13px;padding:14px;font-size:13px;display:flex;flex-direction:column;gap:8px;line-height:1.7;border:1px solid var(--bd2)"><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:14px;color:var(--ac)">Baraka Juma · Mar 3–9, 2026</div><div>📈 Sales: 3</div><div>💰 Commission: TSh 110,000</div><div>👥 Leads contacted: 7</div><div>🎯 Conversion: 43%</div><div style="padding-top:6px;border-top:1px solid var(--bd);font-size:12px;color:var(--tx3)">Status: Paid ✓ March 14</div></div><button class="btn bwa" onclick="closeM('m-saved-rep')">📤 Send via WhatsApp</button><button class="btn bg" onclick="closeM('m-saved-rep')">Close</button></div></div>
+
+</div>
+<script>
+var SUPABASE_URL = 'https://vbyncyvlqzwwszejxvox.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZieW5jeXZscXp3d3N6ZWp4dm94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMTU4NzQsImV4cCI6MjA4OTU5MTg3NH0.-KP2QOM9xDHYPiga7uMaqRqD_WP8VjhT66lY-z8oBUc';
+var SUPPORT_WA = '255776740221';
+var _myAgent=null; var _myCommissions=[]; var _myReferrals=[];
+
+var SB={
+  _h:function(){return{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=representation'};},
+  select:function(t,f){return fetch(SUPABASE_URL+'/rest/v1/'+t+'?'+(f||''),{headers:SB._h()}).then(function(r){return r.json();}).catch(function(){return[];});},
+  insert:function(t,row){return fetch(SUPABASE_URL+'/rest/v1/'+t,{method:'POST',headers:Object.assign({},SB._h(),{'Prefer':'resolution=merge-duplicates,return=representation'}),body:JSON.stringify(row)}).then(function(r){return r.json();}).catch(function(){return null;});},
+  update:function(t,k,v,u){return fetch(SUPABASE_URL+'/rest/v1/'+t+'?'+k+'=eq.'+encodeURIComponent(v),{method:'PATCH',headers:SB._h(),body:JSON.stringify(u)}).then(function(r){return r.json();}).catch(function(){return null;});}
+};
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fmtDate(iso){if(!iso)return'-';return new Date(iso).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+function timeAgo(iso){if(!iso)return'';var d=Date.now()-new Date(iso).getTime();if(d<60000)return'just now';if(d<3600000)return Math.floor(d/60000)+'m ago';if(d<86400000)return Math.floor(d/3600000)+'h ago';return Math.floor(d/86400000)+'d ago';}
+
+function loadAgentData(agentCode){
+  if(!agentCode)return;
+  SB.select('agents','agent_code=eq.'+encodeURIComponent(agentCode)).then(function(rows){
+    if(!rows||!rows.length){alert('Agent code not found. Contact StayFlow HQ.');return;}
+    _myAgent=rows[0];
+    var e;
+    e=document.getElementById('agent-name');if(e)e.textContent=_myAgent.name||'';
+    e=document.getElementById('agent-code');if(e)e.textContent=_myAgent.agent_code||'';
+    e=document.getElementById('agent-sales');if(e)e.textContent=_myAgent.total_sales||0;
+    e=document.getElementById('agent-earned');if(e)e.textContent='TSh '+(_myAgent.total_earned||0).toLocaleString();
+    loadMyReferrals(_myAgent.id);
+    loadMyCommissions(_myAgent.id);
+  });
+}
+
+function loadMyReferrals(agentId){
+  SB.select('owners','agent_id=eq.'+encodeURIComponent(agentId)+'&order=created_at.desc').then(function(rows){
+    _myReferrals=Array.isArray(rows)?rows:[];
+    var el=document.getElementById('referrals-list');if(!el)return;
+    if(!_myReferrals.length){el.innerHTML='<div style="padding:16px;text-align:center;color:var(--tx2);font-size:13px">No referrals yet. Share your agent code to start earning.</div>';return;}
+    el.innerHTML=_myReferrals.map(function(r){
+      var sc=r.status==='active'?'var(--gn)':r.status==='trial'?'var(--am)':'var(--tx3)';
+      var tc=r.tier===2?'var(--gn)':r.tier===3?'var(--am)':'var(--tx3)';
+      return '<div class="fi"><div class="fd '+(r.status==='active'?'dg':'da')+'"></div>'+
+        '<div class="ft"><strong>'+esc(r.name)+'</strong> &mdash; '+esc(r.property_name||'')+
+        '<br><span style="color:'+sc+'">'+r.status+'</span>'+
+        ' &bull; <span style="color:'+tc+';font-weight:700">Tier '+(r.tier||1)+'</span>'+
+        (r.city?' &bull; '+esc(r.city):'')+
+        '<div class="ftm">'+timeAgo(r.created_at)+'</div></div></div>';
+    }).join('');
+    var cnt=document.getElementById('referral-count');if(cnt)cnt.textContent=_myReferrals.length;
+  });
+}
+
+function loadMyCommissions(agentId){
+  SB.select('commissions','agent_id=eq.'+encodeURIComponent(agentId)+'&order=created_at.desc').then(function(rows){
+    _myCommissions=Array.isArray(rows)?rows:[];
+    var pending=_myCommissions.filter(function(c){return c.status==='pending';});
+    var paid=_myCommissions.filter(function(c){return c.status==='paid';});
+    var pendAmt=pending.reduce(function(s,c){return s+(c.amount||0);},0);
+    var paidAmt=paid.reduce(function(s,c){return s+(c.amount||0);},0);
+    var e;
+    e=document.getElementById('comm-pending');if(e)e.textContent='TSh '+pendAmt.toLocaleString();
+    e=document.getElementById('comm-paid');if(e)e.textContent='TSh '+paidAmt.toLocaleString();
+    var el=document.getElementById('commissions-list');if(!el)return;
+    if(!_myCommissions.length){el.innerHTML='<div style="padding:16px;text-align:center;color:var(--tx2);font-size:13px">No commissions yet.</div>';return;}
+    el.innerHTML=_myCommissions.map(function(c){
+      var sc=c.status==='paid'?'var(--gn)':c.status==='pending'?'var(--am)':'var(--rd)';
+      return '<div class="fi"><div class="fd '+(c.status==='paid'?'dg':'da')+'"></div>'+
+        '<div class="ft"><strong>TSh '+(c.amount||0).toLocaleString()+'</strong> &mdash; Tier '+(c.tier||1)+
+        ' <span style="color:'+sc+';font-weight:700">'+c.status+'</span>'+
+        '<div class="ftm">'+fmtDate(c.created_at)+'</div></div></div>';
+    }).join('');
+  });
+}
+
+function submitLead(){
+  var name=(document.getElementById('lead-name')||{}).value||'';
+  var phone=(document.getElementById('lead-phone')||{}).value||'';
+  var prop=(document.getElementById('lead-prop')||{}).value||'';
+  var city=(document.getElementById('lead-city')||{}).value||'';
+  if(!name.trim()||!phone.trim()){alert('Name and phone are required.');return;}
+  if(!_myAgent){alert('Please enter your agent code first.');return;}
+  var lead={
+    id:'owner_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
+    name:name.trim(),phone:phone.trim(),property_name:prop.trim(),city:city.trim(),
+    agent_id:_myAgent.id,referred_by:_myAgent.agent_code,
+    status:'pending',tier:1,created_at:new Date().toISOString()
+  };
+  SB.insert('owners',lead).then(function(result){
+    if(result){
+      alert('Lead submitted! They will appear in your referrals once approved.');
+      ['lead-name','lead-phone','lead-prop','lead-city'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+      if(_myAgent)loadMyReferrals(_myAgent.id);
+    }else{alert('Error submitting lead. Check your connection.');}
+  });
+}
+const _H=[];
+function go(id){
+  if(id==='s-currency'){setTimeout(fxLoad,100);}document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');_H.push(id)}
+function goN(id,el){document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));if(el)el.classList.add('on');go(id)}
+function openM(id){document.getElementById(id).classList.add('open')}
+function closeM(id){document.getElementById(id).classList.remove('open')}
+function cmb(e,id){if(e.target===e.currentTarget)closeM(id)}
+function toggleTheme(){const r=document.documentElement,d=r.getAttribute('data-theme')==='dark';r.setAttribute('data-theme',d?'light':'dark');document.querySelectorAll('#thbtn').forEach(b=>{if(b)b.textContent=d?'🌙':'☀️'})}
+function calcComm(){const t1=parseInt(document.getElementById('ct1').value)||0;const t2=parseInt(document.getElementById('ct2').value)||0;const t3=parseInt(document.getElementById('ct3').value)||0;const total=(t1*10000)+(t2*25000)+(t3*50000);document.getElementById('commResult').textContent='TSh '+total.toLocaleString()}
+let savedCount=1;
+function saveReport(){savedCount++;const f=document.getElementById('savedReps');const d=document.createElement('div');d.className='fi';d.innerHTML='<div class="fd dg"></div><div class="ft"><strong>Weekly Sales — Mar 10–16</strong><br>4 sales · TSh 160,000<div style="display:flex;gap:7px;margin-top:5px"><span style="background:var(--ac2);color:var(--ac);border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700;cursor:pointer">View</span><span style="background:var(--gn2);color:var(--gn);border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700;cursor:pointer">WhatsApp</span></div></div>';f.appendChild(d);closeM('m-report-gen');alert('Report saved ✓')}
+document.querySelectorAll('.chip').forEach(c=>{c.addEventListener('click',function(){this.closest('.chips').querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')})});
+
+// ========= CURRENCY CONVERTER =========
+var _fx_rates = {};
+var _fx_loaded = false;
+
+var FX_CURRENCIES = {
+  TZS:'Tanzanian Shilling',
+  KES:'Kenyan Shilling',
+  UGX:'Ugandan Shilling',
+  RWF:'Rwandan Franc',
+  ETB:'Ethiopian Birr',
+  NGN:'Nigerian Naira',
+  GHS:'Ghanaian Cedi',
+  ZAR:'South African Rand',
+  EGP:'Egyptian Pound',
+  MAD:'Moroccan Dirham',
+  XOF:'West African CFA Franc',
+  XAF:'Central African CFA Franc',
+  ZMW:'Zambian Kwacha',
+  MZN:'Mozambican Metical',
+  MUR:'Mauritian Rupee',
+  BWP:'Botswana Pula',
+  ZWL:'Zimbabwean Dollar',
+  DZD:'Algerian Dinar',
+  TND:'Tunisian Dinar',
+  LYD:'Libyan Dinar',
+  SDG:'Sudanese Pound',
+  GNF:'Guinean Franc',
+  MWK:'Malawian Kwacha',
+  SCR:'Seychellois Rupee',
+  SOS:'Somali Shilling',
+  MGA:'Malagasy Ariary',
+  NAD:'Namibian Dollar',
+  AOA:'Angolan Kwanza',
+  BIF:'Burundian Franc',
+  DJF:'Djiboutian Franc',
+  GMD:'Gambian Dalasi',
+  SLL:'Sierra Leonean Leone',
+  LRD:'Liberian Dollar',
+  STN:'Sao Tome Dobra',
+  CVE:'Cape Verdean Escudo',
+  KMF:'Comorian Franc',
+  CDF:'Congolese Franc',
+  SSP:'South Sudanese Pound',
+  ERN:'Eritrean Nakfa',
+  USD:'US Dollar',
+  EUR:'Euro',
+  GBP:'British Pound',
+  CAD:'Canadian Dollar',
+  AUD:'Australian Dollar',
+  CHF:'Swiss Franc',
+  JPY:'Japanese Yen',
+  CNY:'Chinese Yuan',
+  INR:'Indian Rupee',
+  AED:'UAE Dirham',
+  SAR:'Saudi Riyal',
+  QAR:'Qatari Riyal',
+  KWD:'Kuwaiti Dinar',
+  BHD:'Bahraini Dinar',
+  OMR:'Omani Rial',
+  SGD:'Singapore Dollar',
+  HKD:'Hong Kong Dollar',
+  NZD:'New Zealand Dollar',
+  SEK:'Swedish Krona',
+  NOK:'Norwegian Krone',
+  DKK:'Danish Krone',
+  MXN:'Mexican Peso',
+  BRL:'Brazilian Real',
+  ARS:'Argentine Peso',
+  CLP:'Chilean Peso',
+  COP:'Colombian Peso',
+  PEN:'Peruvian Sol',
+  TRY:'Turkish Lira',
+  RUB:'Russian Ruble',
+  PKR:'Pakistani Rupee',
+  BDT:'Bangladeshi Taka',
+  IDR:'Indonesian Rupiah',
+  MYR:'Malaysian Ringgit',
+  THB:'Thai Baht',
+  VND:'Vietnamese Dong',
+  PHP:'Philippine Peso',
+  KRW:'South Korean Won',
+  ILS:'Israeli Shekel',
+  JOD:'Jordanian Dinar'
+};
+
+var FX_FALLBACK = {
+  USD:1,EUR:0.92,GBP:0.79,TZS:2650,KES:129,UGX:3750,RWF:1290,ETB:57,
+  GHS:12.5,NGN:1540,ZAR:18.6,EGP:48,MAD:10,XOF:600,ZMW:27,MZN:64,
+  CAD:1.36,AUD:1.53,JPY:149,CNY:7.2,INR:83,AED:3.67,SAR:3.75,
+  SGD:1.34,CHF:0.89,SEK:10.4,NOK:10.6,DKK:6.9,BRL:4.97,MXN:17,
+  BWP:13.5,MUR:45
+};
+
+var FX_PRIORITY = ['USD','EUR','GBP','KES','ZAR','GHS','NGN','AED','INR','AUD','CAD','CHF','JPY','CNY','SAR','TZS'];
+
+function fxLoad() {
+  var btn = document.getElementById('fx-refresh');
+  if (btn) btn.style.opacity = '0.4';
+  fetch('https://open.er-api.com/v6/latest/USD')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && d.rates) {
+        _fx_rates = d.rates;
+        _fx_loaded = true;
+        var info = document.getElementById('fx-info');
+        if (info) info.textContent = 'Live rates - ' + new Date().toLocaleTimeString();
+        if (btn) btn.style.opacity = '1';
+        fxConvert();
+        fxQuick();
+      }
+    })
+    .catch(function(){
+      _fx_rates = FX_FALLBACK;
+      _fx_loaded = true;
+      var info = document.getElementById('fx-info');
+      if (info) info.textContent = 'Indicative rates (offline)';
+      if (btn) btn.style.opacity = '1';
+      fxConvert();
+      fxQuick();
+    });
+}
+
+function fxConv(amount, from, to) {
+  if (!_fx_rates[from] || !_fx_rates[to]) return null;
+  return (amount / _fx_rates[from]) * _fx_rates[to];
+}
+
+function fxFmt(amount, code) {
+  var n = parseFloat(amount) || 0;
+  var decimals = ['JPY','KRW','UGX','RWF','XOF'].indexOf(code) > -1 ? 0 : 2;
+  return n.toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:decimals});
+}
+
+function fxConvert() {
+  if (!_fx_loaded) { fxLoad(); return; }
+  var fromEl = document.getElementById('fx-from');
+  var amtEl = document.getElementById('fx-amount');
+  var resEl = document.getElementById('fx-results');
+  if (!fromEl || !amtEl || !resEl) return;
+  var from = fromEl.value;
+  var amount = parseFloat(amtEl.value) || 0;
+  if (amount <= 0) {
+    resEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--tx3);font-size:13px">Enter amount above</div>';
+    return;
+  }
+  var toShow = FX_PRIORITY.filter(function(c){ return c !== from; });
+  var html = '';
+  toShow.forEach(function(code){
+    var converted = fxConv(amount, from, code);
+    if (converted === null) return;
+    var name = FX_CURRENCIES[code] || code;
+    html += '<div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--bd)">' +
+      '<div style="font-size:11px;font-weight:700;color:var(--tx2);width:36px;flex-shrink:0">' + code + '</div>' +
+      '<div style="flex:1;font-size:12px;color:var(--tx2)">' + name + '</div>' +
+      '<div style="font-size:16px;font-weight:700;color:var(--ac)">' + fxFmt(converted, code) + '</div></div>';
+  });
+  resEl.innerHTML = html || '<div style="color:var(--tx3);padding:12px">No data</div>';
+}
+
+function fxQuick() {
+  var el = document.getElementById('fx-quick');
+  if (!el || !_fx_loaded) return;
+  var pairs = [['TZS','USD'],['TZS','EUR'],['TZS','GBP'],['USD','TZS'],['KES','USD'],['NGN','USD'],['GHS','USD'],['ZAR','USD']];
+  var html = '';
+  pairs.forEach(function(p){
+    var rate = fxConv(1, p[0], p[1]);
+    if (rate === null) return;
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd)">' +
+      '<div style="font-size:13px;color:var(--tx2)">1 ' + p[0] + '</div>' +
+      '<div style="font-size:14px;font-weight:700;color:var(--ac)">' + fxFmt(rate, p[1]) + ' ' + p[1] + '</div></div>';
+  });
+  el.innerHTML = html || '<div style="color:var(--tx3);padding:10px">No data</div>';
+}
+
+
+// ── SALES LOGIN ───────────────────────────────────────────────
+var _salesPinBuffer=''; var _salesPinMode='set'; var _salesAgentCode=''; var _salesConfirmPin='';
+
+function salesLoginNext(){
+  var code=(document.getElementById('sales-agent-code').value||'').trim().toUpperCase();
+  var err=document.getElementById('sales-login-error');
+  if(!code){if(err)err.textContent='Please enter your agent code.';return;}
+  _salesAgentCode=code;
+  var storedPin=localStorage.getItem('sf_sales_pin_'+code);
+  document.getElementById('sales-code-field').style.display='none';
+  document.getElementById('sales-next-btn').style.display='none';
+  document.getElementById('sales-pin-area').style.display='block';
+  _salesPinMode=storedPin?'enter':'set';
+  var title=document.getElementById('sales-login-title');
+  var sub=document.getElementById('sales-login-sub');
+  if(_salesPinMode==='set'){if(title)title.textContent='Create your PIN';if(sub)sub.textContent='Choose a 4-digit PIN to protect your account';}
+  else{if(title)title.textContent='Enter your PIN';if(sub)sub.textContent='Your 4-digit security PIN';}
+  _salesPinBuffer=''; salesPinUpdateDots();
+}
+function salesPinUpdateDots(){for(var i=0;i<4;i++){var d=document.getElementById('spd'+i);if(d)d.className='pin-dot'+(_salesPinBuffer.length>i?' filled':'');}}
+function salesPinKey(k){if(_salesPinBuffer.length>=4)return;_salesPinBuffer+=k;salesPinUpdateDots();if(_salesPinBuffer.length===4)setTimeout(salesPinSubmit,120);}
+function salesPinDel(){_salesPinBuffer=_salesPinBuffer.slice(0,-1);salesPinUpdateDots();}
+function salesPinSubmit(){
+  var err=document.getElementById('sales-login-error');
+  var title=document.getElementById('sales-login-title');
+  var sub=document.getElementById('sales-login-sub');
+  if(_salesPinMode==='set'){_salesConfirmPin=_salesPinBuffer;_salesPinBuffer='';salesPinUpdateDots();_salesPinMode='confirm';if(title)title.textContent='Confirm your PIN';if(sub)sub.textContent='Enter the same PIN again';return;}
+  if(_salesPinMode==='confirm'){
+    if(_salesPinBuffer===_salesConfirmPin){localStorage.setItem('sf_sales_pin_'+_salesAgentCode,_salesPinBuffer);salesLoadAndGo();}
+    else{if(err)err.textContent='PINs do not match. Try again.';_salesPinBuffer='';_salesConfirmPin='';_salesPinMode='set';if(title)title.textContent='Create your PIN';if(sub)sub.textContent='Choose a 4-digit PIN';salesPinUpdateDots();}
+    return;
+  }
+  // Check if admin reset the PIN
+  SB.select('agents','agent_code=eq.'+encodeURIComponent(_salesAgentCode)+'&select=pin_reset').then(function(rows){
+    if(rows&&rows.length&&rows[0].pin_reset){
+      SB.update('agents','agent_code',_salesAgentCode,{pin_reset:false});
+      localStorage.removeItem('sf_sales_pin_'+_salesAgentCode);
+      _salesPinBuffer=''; _salesConfirmPin=''; _salesPinMode='set';
+      salesPinUpdateDots();
+      var title=document.getElementById('sales-login-title');
+      var sub=document.getElementById('sales-login-sub');
+      if(title)title.textContent='Create new PIN';
+      if(sub)sub.textContent='Your PIN was reset. Choose a new 4-digit PIN.';
+      return;
+    }
+    var stored=localStorage.getItem('sf_sales_pin_'+_salesAgentCode);
+    if(_salesPinBuffer===stored){if(err)err.textContent='';salesLoadAndGo();}
+    else{if(err)err.textContent='Incorrect PIN. Try again.';_salesPinBuffer='';salesPinUpdateDots();}
+  }).catch(function(){
+    var stored=localStorage.getItem('sf_sales_pin_'+_salesAgentCode);
+    if(_salesPinBuffer===stored){if(err)err.textContent='';salesLoadAndGo();}
+    else{if(err)err.textContent='Incorrect PIN. Try again.';_salesPinBuffer='';salesPinUpdateDots();}
+  });
+}
+function salesLoadAndGo(){
+  localStorage.setItem('sf_sales_session',JSON.stringify({code:_salesAgentCode,time:Date.now()}));
+  loadAgentData(_salesAgentCode);
+  go('s-dash');
+}
+function salesForgot(){window.open('https://wa.me/255776740221?text='+encodeURIComponent('Hello, I need help with my StayFlow Sales agent login.\n\nAgent code: '+_salesAgentCode),'_blank');}
+function doSalesLogout(){localStorage.removeItem('sf_sales_session');location.reload();}
+
+// Check existing session on load
+(function(){
+  var sess=localStorage.getItem('sf_sales_session');
+  if(sess){try{var s=JSON.parse(sess);if(Date.now()-s.time<43200000){_salesAgentCode=s.code;loadAgentData(s.code);document.addEventListener('DOMContentLoaded',function(){go('s-dash');});return;}}catch(e){}localStorage.removeItem('sf_sales_session');}
+})();
+</script>
+
+<!-- CURRENCY CONVERTER -->
+<div id="s-currency" class="screen">
+  <div class="tbar">
+    <div class="tbL">
+      <div class="ib ic" onclick="goN('s-dash',null)">&#8592;</div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:16px">Currency Converter</div>
+    </div>
+    <div class="tbR">
+      <div class="ib ic" id="fx-refresh" onclick="fxLoad()" style="font-size:13px;font-weight:700;color:var(--ac)">&#8635;</div>
+      <div class="ib ic" onclick="toggleTheme()">&#9790;</div>
+    </div>
+  </div>
+  <div class="sb">
+    <div style="font-size:11px;color:var(--tx3);text-align:right" id="fx-info">Tap refresh for live rates</div>
+    <div class="card" style="padding:15px;display:flex;flex-direction:column;gap:11px">
+      <div class="fc"><div class="lbl">From Currency</div>
+        <select class="inp sel" id="fx-from" onchange="fxConvert()">
+        <option value="TZS">TZS - Tanzanian Shilling</option>
+        <option value="KES">KES - Kenyan Shilling</option>
+        <option value="UGX">UGX - Ugandan Shilling</option>
+        <option value="RWF">RWF - Rwandan Franc</option>
+        <option value="ETB">ETB - Ethiopian Birr</option>
+        <option value="NGN">NGN - Nigerian Naira</option>
+        <option value="GHS">GHS - Ghanaian Cedi</option>
+        <option value="ZAR">ZAR - South African Rand</option>
+        <option value="EGP">EGP - Egyptian Pound</option>
+        <option value="MAD">MAD - Moroccan Dirham</option>
+        <option value="XOF">XOF - West African CFA Franc</option>
+        <option value="XAF">XAF - Central African CFA Franc</option>
+        <option value="ZMW">ZMW - Zambian Kwacha</option>
+        <option value="MZN">MZN - Mozambican Metical</option>
+        <option value="MUR">MUR - Mauritian Rupee</option>
+        <option value="BWP">BWP - Botswana Pula</option>
+        <option value="ZWL">ZWL - Zimbabwean Dollar</option>
+        <option value="DZD">DZD - Algerian Dinar</option>
+        <option value="TND">TND - Tunisian Dinar</option>
+        <option value="LYD">LYD - Libyan Dinar</option>
+        <option value="SDG">SDG - Sudanese Pound</option>
+        <option value="GNF">GNF - Guinean Franc</option>
+        <option value="MWK">MWK - Malawian Kwacha</option>
+        <option value="SCR">SCR - Seychellois Rupee</option>
+        <option value="SOS">SOS - Somali Shilling</option>
+        <option value="MGA">MGA - Malagasy Ariary</option>
+        <option value="NAD">NAD - Namibian Dollar</option>
+        <option value="AOA">AOA - Angolan Kwanza</option>
+        <option value="BIF">BIF - Burundian Franc</option>
+        <option value="DJF">DJF - Djiboutian Franc</option>
+        <option value="GMD">GMD - Gambian Dalasi</option>
+        <option value="SLL">SLL - Sierra Leonean Leone</option>
+        <option value="LRD">LRD - Liberian Dollar</option>
+        <option value="STN">STN - Sao Tome Dobra</option>
+        <option value="CVE">CVE - Cape Verdean Escudo</option>
+        <option value="KMF">KMF - Comorian Franc</option>
+        <option value="CDF">CDF - Congolese Franc</option>
+        <option value="SSP">SSP - South Sudanese Pound</option>
+        <option value="ERN">ERN - Eritrean Nakfa</option>
+        <option value="USD">USD - US Dollar</option>
+        <option value="EUR">EUR - Euro</option>
+        <option value="GBP">GBP - British Pound</option>
+        <option value="CAD">CAD - Canadian Dollar</option>
+        <option value="AUD">AUD - Australian Dollar</option>
+        <option value="CHF">CHF - Swiss Franc</option>
+        <option value="JPY">JPY - Japanese Yen</option>
+        <option value="CNY">CNY - Chinese Yuan</option>
+        <option value="INR">INR - Indian Rupee</option>
+        <option value="AED">AED - UAE Dirham</option>
+        <option value="SAR">SAR - Saudi Riyal</option>
+        <option value="QAR">QAR - Qatari Riyal</option>
+        <option value="KWD">KWD - Kuwaiti Dinar</option>
+        <option value="BHD">BHD - Bahraini Dinar</option>
+        <option value="OMR">OMR - Omani Rial</option>
+        <option value="SGD">SGD - Singapore Dollar</option>
+        <option value="HKD">HKD - Hong Kong Dollar</option>
+        <option value="NZD">NZD - New Zealand Dollar</option>
+        <option value="SEK">SEK - Swedish Krona</option>
+        <option value="NOK">NOK - Norwegian Krone</option>
+        <option value="DKK">DKK - Danish Krone</option>
+        <option value="MXN">MXN - Mexican Peso</option>
+        <option value="BRL">BRL - Brazilian Real</option>
+        <option value="ARS">ARS - Argentine Peso</option>
+        <option value="CLP">CLP - Chilean Peso</option>
+        <option value="COP">COP - Colombian Peso</option>
+        <option value="PEN">PEN - Peruvian Sol</option>
+        <option value="TRY">TRY - Turkish Lira</option>
+        <option value="RUB">RUB - Russian Ruble</option>
+        <option value="PKR">PKR - Pakistani Rupee</option>
+        <option value="BDT">BDT - Bangladeshi Taka</option>
+        <option value="IDR">IDR - Indonesian Rupiah</option>
+        <option value="MYR">MYR - Malaysian Ringgit</option>
+        <option value="THB">THB - Thai Baht</option>
+        <option value="VND">VND - Vietnamese Dong</option>
+        <option value="PHP">PHP - Philippine Peso</option>
+        <option value="KRW">KRW - South Korean Won</option>
+        <option value="ILS">ILS - Israeli Shekel</option>
+        <option value="JOD">JOD - Jordanian Dinar</option>
+        </select>
+      </div>
+      <div class="fc"><div class="lbl">Amount</div>
+        <input class="inp" id="fx-amount" type="number" placeholder="Enter amount" oninput="fxConvert()" style="font-size:20px;font-weight:700;color:var(--ac)">
+      </div>
+    </div>
+    <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:14px">Converted To</div>
+    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:3px 14px;box-shadow:var(--sh)" id="fx-results">
+      <div style="text-align:center;padding:20px;color:var(--tx3);font-size:13px">Enter amount above</div>
+    </div>
+    <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:14px">Quick Reference</div>
+    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:3px 14px;box-shadow:var(--sh)" id="fx-quick">
+      <div style="padding:12px 0;text-align:center;color:var(--tx3);font-size:13px">Loading...</div>
+    </div>
+    <div style="background:var(--sf2);border-radius:12px;padding:11px 14px;font-size:12px;color:var(--tx3);line-height:1.6">
+      Rates via open exchange API. Updated each time you refresh. For reference only.
+    </div>
+  </div>
+  <div class="bnav"><div class="ni" onclick="goN('s-dash',this)"><div class="ico">&#127968;</div><div class="nl">Home</div></div><div class="ni" onclick="goN('s-leads',this)"><div class="ico">&#128270;</div><div class="nl">Leads</div></div><div class="ni" onclick="goN('s-pipeline',this)"><div class="ico">&#128200;</div><div class="nl">Pipeline</div></div><div class="ni" onclick="goN('s-commissions',this)"><div class="ico">&#128176;</div><div class="nl">Comm.</div></div><div class="ni on" ><div class="ico">&#128178;</div><div class="nl">FX</div></div><div class="ni" onclick="goN('s-reports',this)"><div class="ico">&#128202;</div><div class="nl">Reports</div></div></div>
+</div>
+
+<div class="note" style="padding:16px 0 8px;text-align:center;font-size:11px;color:var(--tx3)">StayFlow&trade; &bull; Property Management for Africa</div>
+</body>
+</html>
