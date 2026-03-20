@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="110" ry="110" fill="#3a7fd5"/>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.15)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.12)"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" ry="110" fill="url(#grad)"/>
+
+  <!-- House roof -->
+  <polygon points="256,80 375,190 137,190" fill="white" opacity="0.95"/>
+  <!-- House body -->
+  <rect x="158" y="187" width="196" height="138" rx="6" fill="white" opacity="0.95"/>
+  <!-- Door -->
+  <rect x="222" y="252" width="68" height="73" rx="8" fill="#3a7fd5" opacity="0.85"/>
+  <!-- Door knob -->
+  <circle cx="278" cy="291" r="5" fill="white" opacity="0.75"/>
+  <!-- Left window -->
+  <rect x="174" y="210" width="48" height="42" rx="5" fill="#3a7fd5" opacity="0.7"/>
+  <line x1="198" y1="210" x2="198" y2="252" stroke="white" stroke-width="2.5" opacity="0.5"/>
+  <line x1="174" y1="231" x2="222" y2="231" stroke="white" stroke-width="2.5" opacity="0.5"/>
+  <!-- Right window -->
+  <rect x="290" y="210" width="48" height="42" rx="5" fill="#3a7fd5" opacity="0.7"/>
+  <line x1="314" y1="210" x2="314" y2="252" stroke="white" stroke-width="2.5" opacity="0.5"/>
+  <line x1="290" y1="231" x2="338" y2="231" stroke="white" stroke-width="2.5" opacity="0.5"/>
+
+  <!-- StayFlow + TM on one line, fitted -->
+  <text x="256" y="382" font-family="Georgia,serif" font-weight="bold" font-size="58" fill="white" text-anchor="middle" letter-spacing="-0.5">StayFlow&#x2122;</text>
+
+  <!-- Subtitle -->
+  <text x="256" y="428" font-family="Arial,sans-serif" font-weight="bold" font-size="32" fill="white" text-anchor="middle" opacity="0.7" letter-spacing="4"></text>
+</svg>
