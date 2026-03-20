@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Property — StayFlow™</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<script>
+const STAYFLOW_CONFIG = {
+  SUPABASE_URL: 'YOUR_SUPABASE_URL_HERE',
+  SUPABASE_KEY: 'YOUR_SUPABASE_ANON_KEY_HERE',
+  SUPPORT_WHATSAPP: '255700000000',
+  BASE_URL: 'https://yourusername.github.io/stayflow',
+  CLOUD_ENABLED: false,
+};
+var _supabase = null;
+function getSupabase() {
+  if (!_supabase && STAYFLOW_CONFIG.SUPABASE_URL !== 'YOUR_SUPABASE_URL_HERE') {
+    if (window.supabase) {
+      _supabase = window.supabase.createClient(STAYFLOW_CONFIG.SUPABASE_URL, STAYFLOW_CONFIG.SUPABASE_KEY);
+    }
+  }
+  return _supabase;
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{font-family:'DM Sans',sans-serif;background:#0f1117;color:#e2e8f4;min-height:100vh}
+.hero{background:linear-gradient(135deg,#1a2a5c 0%,#2448a0 60%,#4f8ef7 100%);padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.07)}
+.hero-logo{font-family:'Playfair Display',serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.hero-name{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;letter-spacing:-.5px;margin-bottom:6px}
+.hero-loc{font-size:14px;color:rgba(255,255,255,.65);margin-bottom:18px}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.15);border-radius:20px;padding:5px 14px;font-size:12px;color:#fff;font-weight:700}
+.container{max-width:640px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#161b24;border:1px solid rgba(148,163,184,.09);border-radius:16px;padding:18px;margin-bottom:16px}
+.card-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:12px;color:#e2e8f4}
+.info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(148,163,184,.07);font-size:14px}
+.info-row:last-child{border-bottom:none}
+.info-l{color:#6a7a9a}.info-v{font-weight:600;text-align:right}
+.room-card{background:#1c2230;border:1px solid rgba(148,163,184,.09);border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.room-name{font-size:15px;font-weight:700}
+.room-type{font-size:12px;color:#6a7a9a;margin-top:2px}
+.room-rate{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#4f8ef7;text-align:right}
+.room-per{font-size:11px;color:#6a7a9a;text-align:right}
+.pill{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;margin-top:4px}
+.pva{background:rgba(148,163,184,.12);color:#6a7a9a}
+.poc{background:rgba(79,142,247,.14);color:#4f8ef7}
+.inp{width:100%;background:#1c2230;border:1.5px solid rgba(148,163,184,.14);border-radius:11px;padding:11px 13px;font-size:14px;font-family:'DM Sans',sans-serif;color:#e2e8f4;outline:none;transition:border-color .2s;margin-top:5px}
+.inp:focus{border-color:#4f8ef7}
+.inp::placeholder{color:#354466}
+.lbl{font-size:11px;font-weight:700;color:#6a7a9a;letter-spacing:.4px;text-transform:uppercase;display:block;margin-top:12px}
+.fc{margin-top:0}.fr{display:flex;gap:9px}
+.btn{width:100%;padding:14px;border-radius:13px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;border:none;cursor:pointer;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.bwa{background:#25D366;color:#fff}
+.bp{background:#4f8ef7;color:#fff}
+.welcome{font-size:14px;color:#7a8aaa;line-height:1.7;padding:4px 0}
+.badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.badge{background:#1c2230;border:1px solid rgba(148,163,184,.12);border-radius:20px;padding:5px 12px;font-size:12px;color:#7a8aaa}
+.wa-float{position:fixed;bottom:24px;right:20px;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 20px rgba(37,211,102,.4);cursor:pointer;z-index:100;text-decoration:none}
+.sf-footer{text-align:center;padding:24px 16px 12px;font-size:12px;color:#354466}
+.sf-footer a{color:#4f8ef7;text-decoration:none;font-weight:600}
+.success{background:rgba(46,201,138,.14);border:1px solid rgba(46,201,138,.3);border-radius:13px;padding:16px;text-align:center;display:none;margin-top:14px}
+.success.show{display:block}
+@media(min-width:640px){.hero{padding:64px 40px 48px}.hero-name{font-size:42px}}
+</style>
+</head>
+<body>
+
+<div id="page-loading" style="padding:60px;text-align:center;color:#6a7a9a">Loading property...</div>
+<div id="page-content" style="display:none">
+
+<div class="hero">
+  <div class="hero-logo">POWERED BY STAYFLOW™</div>
+  <div class="hero-name" id="prop-name">Property Name</div>
+  <div class="hero-loc" id="prop-loc">📍 Location</div>
+  <div class="hero-tag" id="prop-type">Guesthouse</div>
+</div>
+
+<div class="container">
+
+  <!-- Welcome -->
+  <div class="card">
+    <div class="card-title">Welcome 👋</div>
+    <div class="welcome" id="prop-welcome">Welcome to our property. We look forward to hosting you.</div>
+    <div class="badge-row">
+      <div class="badge">🕐 Check-in: <strong id="prop-ci">2:00 PM</strong></div>
+      <div class="badge">🕙 Check-out: <strong id="prop-co">11:00 AM</strong></div>
+    </div>
+  </div>
+
+  <!-- Rooms -->
+  <div class="card">
+    <div class="card-title">Available Rooms</div>
+    <div id="rooms-section"><div style="color:#6a7a9a;font-size:14px">Loading rooms...</div></div>
+  </div>
+
+  <!-- About -->
+  <div class="card" id="about-card" style="display:none">
+    <div class="card-title">About This Property</div>
+    <div id="about-rows"></div>
+  </div>
+
+  <!-- Book Now -->
+  <div class="card">
+    <div class="card-title">📅 Request a Booking</div>
+    <div style="font-size:13px;color:#6a7a9a;margin-bottom:4px">Fill in your details and we'll confirm your booking via WhatsApp usually within a few hours.</div>
+    <label class="lbl">Your Name</label>
+    <input class="inp" id="inq-name" placeholder="Your full name">
+    <label class="lbl">WhatsApp Number</label>
+    <input class="inp" id="inq-phone" type="tel" placeholder="+255 7XX XXX XXX">
+    <div class="fr" style="margin-top:0">
+      <div style="flex:1"><label class="lbl">Check-in</label><input class="inp" id="inq-checkin" type="date"></div>
+      <div style="flex:1"><label class="lbl">Check-out</label><input class="inp" id="inq-checkout" type="date"></div>
+    </div>
+    <label class="lbl">Guests</label>
+    <select class="inp" id="inq-guests"><option value="1">1 guest</option><option value="2">2 guests</option><option value="3">3 guests</option><option value="4">4+ guests</option></select>
+    <label class="lbl">Message (optional)</label>
+    <textarea class="inp" id="inq-msg" rows="3" placeholder="Any special requests, room preference..."></textarea>
+    <button class="btn bwa" onclick="submitInquiry()">📤 Send via WhatsApp</button>
+    <div class="success" id="inq-success">
+      <div style="font-size:24px;margin-bottom:8px">✅</div>
+      <div style="font-weight:700;font-size:15px">Inquiry Sent!</div>
+      <div style="font-size:13px;color:#7a8aaa;margin-top:4px">The property will contact you on WhatsApp to confirm.</div>
+    </div>
+  </div>
+
+</div>
+
+<a class="wa-float" id="wa-btn" href="#" target="_blank">💬</a>
+
+<div class="sf-footer">
+  Powered by <a href="#">StayFlow&trade;</a> &bull; Property Management for Africa
+</div>
+
+</div><!-- /page-content -->
+<div id="page-error" style="display:none;padding:60px 24px;text-align:center">
+  <div style="font-size:48px;margin-bottom:16px">🏠</div>
+  <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:8px">Property Not Found</div>
+  <div style="font-size:14px;color:#6a7a9a">This property page isn't available. Please check the link and try again.</div>
+</div>
+
+<script>
+// ── LOAD PROPERTY FROM URL PARAM ──
+function getParam(name) {
+  var url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
+
+var propSlug = getParam('property');
+var propData = null;
+var ownerPhone = '';
+
+function formatTime(t) {
+  if (!t) return '—';
+  var parts = t.split(':');
+  var h = parseInt(parts[0]);
+  var m = parts[1] || '00';
+  var ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return h + ':' + m + ' ' + ampm;
+}
+
+function loadProperty() {
+  if (!propSlug) { showError(); return; }
+
+  // Try Supabase first if configured
+  var sb = getSupabase();
+  if (sb) {
+    sb.from('properties').select('*, owners(name,phone)').or('slug.eq.' + propSlug + ',id.eq.' + propSlug).single()
+      .then(function(result) {
+        if (result.error || !result.data) {
+          // Fall back to local storage
+          loadFromLocal();
+        } else {
+          renderProperty(result.data, result.data.owners);
+          loadRoomsCloud(result.data.id);
+        }
+      });
+  } else {
+    loadFromLocal();
+  }
+}
+
+function loadFromLocal() {
+  // For Tier 1 — load from localStorage of the same browser
+  var prop = null;
+  for (var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+    if (key === 'sf_property') {
+      try { prop = JSON.parse(localStorage.getItem(key)); } catch {}
+    }
+  }
+  if (!prop) {
+    // Show a demo version
+    renderProperty({
+      name: 'Demo Property',
+      type: 'Guesthouse',
+      city: 'Zanzibar, Tanzania',
+      welcome_msg: 'Welcome to our property! We look forward to hosting you and making your stay unforgettable.',
+      checkin_time: '14:00',
+      checkout_time: '11:00',
+      whatsapp: STAYFLOW_CONFIG.SUPPORT_WHATSAPP,
+      id: 'demo'
+    }, null);
+    loadRoomsLocal();
+    return;
+  }
+  var owner = null;
+  try { owner = JSON.parse(localStorage.getItem('sf_owner')); } catch {}
+  renderProperty(prop, owner);
+  loadRoomsLocal();
+}
+
+function renderProperty(prop, owner) {
+  propData = prop;
+  ownerPhone = (prop.whatsapp || (owner ? owner.phone : '') || '').replace(/[^0-9]/g, '');
+  if (ownerPhone.startsWith('0')) ownerPhone = '255' + ownerPhone.slice(1);
+  document.title = (prop.name || 'Property') + ' — StayFlow™';
+  setText('prop-name', prop.name || 'Our Property');
+  setText('prop-loc', '📍 ' + (prop.city || 'East Africa'));
+  setText('prop-type', prop.type || 'Property');
+  setText('prop-welcome', prop.welcome_msg || 'Welcome to our property. We look forward to hosting you.');
+  setText('prop-ci', formatTime(prop.checkin_time || '14:00'));
+  setText('prop-co', formatTime(prop.checkout_time || '11:00'));
+  var waBtn = document.getElementById('wa-btn');
+  if (waBtn && ownerPhone) {
+    var hello = 'Hello! I found your property on StayFlow™. I\'d like to inquire about availability.';
+    waBtn.href = 'https://wa.me/' + ownerPhone + '?text=' + encodeURIComponent(hello);
+  }
+  // Set min dates
+  var today = new Date().toISOString().split('T')[0];
+  var ci = document.getElementById('inq-checkin');
+  var co = document.getElementById('inq-checkout');
+  if (ci) { ci.value = today; ci.min = today; }
+  if (co) {
+    var tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+    co.value = tomorrow.toISOString().split('T')[0];
+    co.min = tomorrow.toISOString().split('T')[0];
+  }
+  document.getElementById('page-loading').style.display = 'none';
+  document.getElementById('page-content').style.display = 'block';
+}
+
+function loadRoomsLocal() {
+  var rooms = [];
+  for (var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+    if (key && key.startsWith('sf_room_')) {
+      try { rooms.push(JSON.parse(localStorage.getItem(key))); } catch {}
+    }
+  }
+  renderRooms(rooms);
+}
+
+function loadRoomsCloud(propId) {
+  var sb = getSupabase();
+  if (!sb) { loadRoomsLocal(); return; }
+  sb.from('rooms').select('*').eq('property_id', propId).then(function(r) {
+    renderRooms(r.data || []);
+  });
+}
+
+function renderRooms(rooms) {
+  var el = document.getElementById('rooms-section');
+  if (!el) return;
+  if (!rooms || rooms.length === 0) {
+    el.innerHTML = '<div style="color:#6a7a9a;font-size:14px">Room information coming soon. WhatsApp us for availability.</div>';
+    return;
+  }
+  el.innerHTML = rooms.map(function(r) {
+    var status = r.status || 'vacant';
+    var available = status === 'vacant';
+    return '<div class="room-card">' +
+      '<div><div class="room-name">' + esc(r.name) + '</div>' +
+      '<div class="room-type">' + esc(r.type || 'Room') + (r.notes ? ' · ' + esc(r.notes) : '') + '</div>' +
+      '<span class="pill ' + (available ? 'pva' : 'poc') + '">' + (available ? 'Available' : 'Occupied') + '</span></div>' +
+      '<div><div class="room-rate">TSh ' + parseInt(r.rate || 0).toLocaleString() + '</div>' +
+      '<div class="room-per">/night</div></div></div>';
+  }).join('');
+}
+
+function submitInquiry() {
+  var name = document.getElementById('inq-name').value.trim();
+  var phone = document.getElementById('inq-phone').value.trim();
+  var checkin = document.getElementById('inq-checkin').value;
+  var checkout = document.getElementById('inq-checkout').value;
+  var guests = document.getElementById('inq-guests').value;
+  var msg = document.getElementById('inq-msg').value.trim();
+  if (!name || !phone) { alert('Please enter your name and WhatsApp number.'); return; }
+  if (!checkin || !checkout) { alert('Please select your dates.'); return; }
+  // Save inquiry to property owner's localStorage (if same browser)
+  try {
+    var inq = {
+      id: 'inquiry_' + Date.now(),
+      guest_name: name,
+      guest_phone: phone,
+      checkin_date: checkin,
+      checkout_date: checkout,
+      guests: guests,
+      message: msg,
+      status: 'new',
+      created_at: new Date().toISOString()
+    };
+    localStorage.setItem('sf_' + inq.id, JSON.stringify(inq));
+  } catch(e) {}
+  // Save to cloud if available
+  var sb = getSupabase();
+  if (sb && propData) {
+    sb.from('inquiries').insert({
+      id: 'inq_' + Date.now(),
+      property_id: propData.id,
+      guest_name: name,
+      guest_phone: phone,
+      checkin_date: checkin,
+      checkout_date: checkout,
+      guests: parseInt(guests),
+      message: msg,
+      created_at: new Date().toISOString()
+    });
+  }
+  // Send via WhatsApp to property
+  var propName = propData ? propData.name : 'your property';
+  var waMsg = '🏠 *Booking Inquiry — ' + propName + '*\n\n' +
+    'Name: ' + name + '\n' +
+    'Phone: ' + phone + '\n' +
+    'Check-in: ' + checkin + '\n' +
+    'Check-out: ' + checkout + '\n' +
+    'Guests: ' + guests + '\n' +
+    (msg ? 'Message: ' + msg + '\n' : '') +
+    '\n_Sent via StayFlow™_';
+  var targetPhone = ownerPhone || STAYFLOW_CONFIG.SUPPORT_WHATSAPP;
+  window.open('https://wa.me/' + targetPhone + '?text=' + encodeURIComponent(waMsg), '_blank');
+  // Show success
+  document.getElementById('inq-success').classList.add('show');
+  ['inq-name','inq-phone','inq-msg'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+}
+
+function showError() {
+  document.getElementById('page-loading').style.display = 'none';
+  document.getElementById('page-error').style.display = 'block';
+}
+
+function setText(id, val) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+loadProperty();
+</script>
+</body>
+</html>
